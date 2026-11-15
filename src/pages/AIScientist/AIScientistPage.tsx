@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUp, BrainCircuit, Database, Eraser, Sparkles } from "lucide-react";
 import { useEntries, isReady } from "@/hooks/useEntries";
-import { useInvestigation } from "@/store/investigation";
+import { newId, useInvestigation } from "@/store/investigation";
 import { InvestigationRail } from "@/components/scientific/InvestigationRail";
 import { AnalystBlocks } from "@/components/scientific/AnalystBlocks";
 import { Sparkline } from "@/components/charts/Sparkline";
 import { AIBadge, TrendBadge } from "@/components/ui/Badge";
 import { Button, ButtonLink } from "@/components/ui/Button";
-import { AI_ENDPOINT, SUGGESTED_PROMPTS, answer, type AnalystResponse } from "@/services/analyst";
+import { AI_ENDPOINT, answer, suggestedPrompts, type AnalystBlock, type AnalystResponse } from "@/services/analyst";
 import { fmtP, fmtSigned } from "@/utils/format";
 import { resultAnnualUnit } from "@/utils/trend";
 import { cn } from "@/utils/cn";
@@ -24,6 +25,9 @@ interface Msg {
 export default function AIScientistPage() {
   const entries = useEntries().filter(isReady);
   const config = useInvestigation((s) => s.config);
+  const status = useInvestigation((s) => s.status);
+  const run = useInvestigation((s) => s.run);
+  const navigate = useNavigate();
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -46,7 +50,15 @@ export default function AIScientistPage() {
     setBusy(false);
   };
 
-  const prompts = entries.length > 1 && new Set(entries.map((e) => e.variable.id)).size < entries.length ? SUGGESTED_PROMPTS : SUGGESTED_PROMPTS.slice(1);
+  // Chips are built from this case, so every one of them can be answered.
+  const prompts = useMemo(() => suggestedPrompts(ctx), [ctx]);
+
+  // One click: add the variable the question asked about, and run the analysis.
+  const addVariable = (b: Extract<AnalystBlock, { type: "action" }>) => {
+    if (!config || config.variableIds.includes(b.variableId)) return;
+    void run({ ...config, id: newId(), variableIds: [...config.variableIds, b.variableId] });
+    navigate("/workspace");
+  };
 
   return (
     <div className="min-h-dvh pt-[var(--nav-h)]">
@@ -153,7 +165,7 @@ export default function AIScientistPage() {
                         ) : (
                           m.response && (
                             <>
-                              <AnalystBlocks blocks={m.response.blocks} />
+                              <AnalystBlocks blocks={m.response.blocks} onAction={config ? addVariable : undefined} actionBusy={status === "loading"} />
                               {m.response.sources.length > 0 && (
                                 <div className="mt-3 flex flex-wrap gap-1.5">
                                   {m.response.sources.map((s) => (
@@ -204,7 +216,7 @@ export default function AIScientistPage() {
                     }
                   }}
                   rows={2}
-                  placeholder="Why are these two regions showing opposite precipitation trends?"
+                  placeholder={prompts[0] ?? "Ask about your results"}
                   aria-label="Ask the AI Scientist"
                   className="w-full resize-none rounded-[var(--radius-lg)] border border-[var(--color-line-strong)] bg-[var(--color-surface-2)] py-3 pl-4 pr-14 text-sm placeholder:text-[var(--color-ink-4)] focus:border-[var(--color-violet)] focus:outline-none"
                 />

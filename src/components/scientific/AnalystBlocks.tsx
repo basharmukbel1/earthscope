@@ -1,12 +1,25 @@
 import { Link } from "react-router";
-import { AlertTriangle, BookOpen, FlaskConical, Lightbulb, Ruler } from "lucide-react";
+import { AlertTriangle, BookOpen, FlaskConical, Lightbulb, Plus, Ruler } from "lucide-react";
 import type { AnalystBlock } from "@/services/analyst";
 import { GLOSSARY } from "@/data/glossary";
 import { getVariable } from "@/data/catalog";
 import { cn } from "@/utils/cn";
 
 /** Renders analyst output with a strict visual separation of evidence vs hypothesis. */
-export function AnalystBlocks({ blocks, className, dense }: { blocks: AnalystBlock[]; className?: string; dense?: boolean }) {
+export function AnalystBlocks({
+  blocks,
+  className,
+  dense,
+  onAction,
+  actionBusy,
+}: {
+  blocks: AnalystBlock[];
+  className?: string;
+  dense?: boolean;
+  /** Runs a one-click follow-up (e.g. add a variable). Without it, actions render as plain text. */
+  onAction?: (block: Extract<AnalystBlock, { type: "action" }>) => void;
+  actionBusy?: boolean;
+}) {
   return (
     <div className={cn("space-y-3", className)}>
       {blocks.map((b, i) => {
@@ -102,6 +115,22 @@ export function AnalystBlocks({ blocks, className, dense }: { blocks: AnalystBlo
               </div>
             );
           }
+          case "action":
+            return (
+              <div key={i} className="rounded-[var(--radius-md)] border border-[rgb(56_225_255/.22)] bg-[rgb(56_225_255/.04)] p-3">
+                <p className="text-[13px] leading-relaxed text-[var(--color-ink-2)]">{b.text}</p>
+                {onAction && (
+                  <button
+                    type="button"
+                    onClick={() => onAction(b)}
+                    disabled={actionBusy}
+                    className="mt-2.5 inline-flex h-8 items-center gap-1.5 rounded-[var(--radius-sm)] border border-[var(--color-line-strong)] bg-white/[0.03] px-3 text-xs font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-line-bright)] hover:bg-white/[0.06] disabled:opacity-40"
+                  >
+                    <Plus className="h-3.5 w-3.5" /> {b.label}
+                  </button>
+                )}
+              </div>
+            );
           case "caution":
             return (
               <div key={i} className="flex gap-2 rounded-[var(--radius-md)] border border-[rgb(245_197_107/.28)] bg-[rgb(245_197_107/.06)] p-3 text-[12.5px] leading-relaxed text-[var(--color-ink-2)]">
