@@ -16,6 +16,7 @@ import { getVariable } from "@/data/catalog";
 import { newId, useInvestigation } from "@/store/investigation";
 import { fmtDateKey, fmtLat, fmtLon, fmtP, fmtSigned } from "@/utils/format";
 import { cn } from "@/utils/cn";
+import { ATLAS_FDR_Q, mapPolicy } from "@/data/significance";
 
 interface HoverInfo {
   lon: number;
@@ -144,7 +145,7 @@ export default function EarthExplorerPage() {
                 {fmtSigned(hover.atlasPoint.slope, 2)} {atlas.unit}
               </div>
               <div className="text-[var(--color-ink-3)]">
-                p = {fmtP(hover.atlasPoint.p)} · {hover.atlasPoint.sig ? "significant (FDR)" : "not significant"} · {atlas.startYear}–{atlas.endYear}
+                p = {fmtP(hover.atlasPoint.p)} · {hover.atlasPoint.sig ? `significant (FDR q < ${ATLAS_FDR_Q})` : "not significant"} · {atlas.startYear}–{atlas.endYear}
               </div>
             </div>
           )}
@@ -352,6 +353,7 @@ function Legend({ layerLegend }: { layerLegend?: string }) {
           </span>
           Faint dot = not significant (shown with “All”)
         </li>
+        <li className="pt-1 text-[11px] text-[var(--color-ink-3)]">{mapPolicy()}</li>
         <li className="flex items-center gap-2">
           <span className="flex w-8 justify-center">
             <span className="h-0.5 w-4 bg-[var(--color-ice)] shadow-[0_0_6px_var(--color-ice)]" />

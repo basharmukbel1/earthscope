@@ -51,7 +51,7 @@ export function ChallengeSection() {
               { n: VARIABLES.length, label: "Earth-science variables catalogued", sub: "with plain-language definitions" },
               { n: MISSIONS.length, label: "Missions & models referenced", sub: "MODIS · OMI · AIRS · GPM · MERRA-2 · GLDAS …" },
               { n: years, label: "Years of monthly record", sub: "NASA POWER · MERRA-2 reanalysis" },
-              { n: tests, label: "Trend tests in the global atlas", sub: "Mann-Kendall + FDR, computed from real data" },
+              { n: tests, label: "Trend tests in the global atlas", sub: "Mann-Kendall, significant at FDR q < 0.05 · real data" },
             ].map((s, i) => (
               <Reveal key={s.label} delay={0.05 * i} className="bg-[var(--color-abyss)] p-7">
                 <div className="font-display text-[3.2rem] leading-none tracking-[-0.04em] text-[var(--color-ink)]">

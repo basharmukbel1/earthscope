@@ -40,6 +40,20 @@ export default function ResourcesPage() {
           </section>
         ))}
 
+        <section className="mt-16 rounded-[var(--radius-lg)] border border-[var(--color-line)] p-6" aria-labelledby="policy">
+          <h2 id="policy" className="font-display text-xl tracking-[-0.02em]">How EARTHSCOPE decides “significant”</h2>
+          <ul className="mt-3 space-y-2 text-sm text-[var(--color-ink-2)]">
+            <li>
+              <strong className="font-medium text-[var(--color-ink)]">One time series</strong> (one variable, one region): significant when p &lt; 0.05 (α, adjustable in the
+              Workspace). Shown on every result card.
+            </li>
+            <li>
+              <strong className="font-medium text-[var(--color-ink)]">Many map points at once</strong> (the 640-point Trend Atlas on the globe): significant when the
+              Benjamini–Hochberg false discovery rate is controlled at q = 0.05, so that at most about 5% of the points flagged as significant are expected to be false alarms.
+            </li>
+          </ul>
+        </section>
+
         <section className="mt-16" aria-labelledby="glossary">
           <h2 id="glossary" className="mb-5 border-b border-[var(--color-line)] pb-3 font-display text-2xl tracking-[-0.02em]">Glossary</h2>
           <dl className="grid gap-x-10 gap-y-6 md:grid-cols-2">

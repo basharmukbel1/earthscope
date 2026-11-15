@@ -4,7 +4,7 @@
  * monthly). For ~640 equal-area (Fibonacci-sphere) points over lat −85..85 we
  * download monthly T2M, PRECTOTCORR, GWETTOP and TQV for 1981–2025, build
  * annual series, run Mann-Kendall + Sen's slope per point, then control the
- * false discovery rate across points with Benjamini–Hochberg (q = 0.10).
+ * false discovery rate across points with Benjamini–Hochberg (q = 0.05).
  *
  *   npx tsx scripts/build-atlas.ts               # fetch (cached) + compute
  *   npx tsx scripts/build-atlas.ts --fetch-only  # just populate data-raw/atlas
@@ -26,7 +26,7 @@ const LAT_MAX = 85;
 const START_YEAR = 1981;
 const END_YEAR = 2025;
 const MIN_YEARS = 40;
-const FDR_Q = 0.1;
+const FDR_Q = 0.05;
 const ALPHA = 0.05; // nominal per-test alpha passed to MK / Sen CI (raw p is stored)
 const CONCURRENCY = 3;
 const PARAMS = ["T2M", "PRECTOTCORR", "GWETTOP", "TQV"] as const;
@@ -271,7 +271,7 @@ async function main() {
       unit: `${unitLabel} per decade`,
       startYear,
       endYear,
-      method: "Mann-Kendall + Sen's slope on annual values; Benjamini–Hochberg FDR q=0.10",
+      method: `Mann-Kendall + Sen's slope on annual values; Benjamini–Hochberg FDR q=${FDR_Q.toFixed(2)}`,
       fdrAlpha: FDR_Q,
       retrieved,
       source: "NASA POWER API (MERRA-2 reanalysis), monthly",

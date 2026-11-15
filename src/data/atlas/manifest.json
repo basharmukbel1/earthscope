@@ -50,7 +50,7 @@
     "exclusions": "soil-surface (GWETTOP) uses land points only (world-atlas land mask); any series that is constant over the whole record is skipped because Mann-Kendall is undefined (see skippedConstantPoints).",
     "trendTest": "Mann-Kendall (two-sided) on annual values; raw p stored per point",
     "slope": "Sen's slope of annual values, ×10 to give units per decade",
-    "multipleTesting": "Benjamini–Hochberg FDR at q=0.1 across points, separately per variable (sig flag)",
+    "multipleTesting": "Benjamini–Hochberg FDR at q=0.05 across points, separately per variable (sig flag)",
     "statsLibrary": "src/stats/index.ts (mannKendall, senSlope, annualAggregate, benjaminiHochberg)"
   },
   "variables": [
@@ -70,9 +70,9 @@
       "skippedConstantSeries": 0,
       "startYear": 1981,
       "endYear": 2025,
-      "significantIncreasing": 461,
-      "significantDecreasing": 33,
-      "significantTotal": 494,
+      "significantIncreasing": 443,
+      "significantDecreasing": 29,
+      "significantTotal": 472,
       "rawPBelow005": 479
     },
     {
@@ -91,9 +91,9 @@
       "skippedConstantSeries": 0,
       "startYear": 1981,
       "endYear": 2025,
-      "significantIncreasing": 89,
-      "significantDecreasing": 112,
-      "significantTotal": 201,
+      "significantIncreasing": 67,
+      "significantDecreasing": 75,
+      "significantTotal": 142,
       "rawPBelow005": 226
     },
     {
@@ -210,9 +210,9 @@
       ],
       "startYear": 1981,
       "endYear": 2025,
-      "significantIncreasing": 31,
-      "significantDecreasing": 36,
-      "significantTotal": 67,
+      "significantIncreasing": 24,
+      "significantDecreasing": 32,
+      "significantTotal": 56,
       "rawPBelow005": 70
     },
     {
@@ -231,9 +231,9 @@
       "skippedConstantSeries": 0,
       "startYear": 1981,
       "endYear": 2025,
-      "significantIncreasing": 438,
-      "significantDecreasing": 15,
-      "significantTotal": 453,
+      "significantIncreasing": 405,
+      "significantDecreasing": 12,
+      "significantTotal": 417,
       "rawPBelow005": 434
     }
   ],

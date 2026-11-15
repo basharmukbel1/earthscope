@@ -5,6 +5,7 @@ import { InfoTip } from "@/components/ui/Controls";
 import { fmt, fmtP, fmtPct, fmtSigned } from "@/utils/format";
 import { pctPerDecade, resultAnnualUnit } from "@/utils/trend";
 import { cn } from "@/utils/cn";
+import { singleSeriesPolicy } from "@/data/significance";
 
 /** Primary scientific result: direction, magnitude, CI, p, n — with significance shown by glyph + label + line style. */
 export function ResultCard({ result, variable, title, className }: { result: AnalysisResult; variable: Variable; title?: string; className?: string }) {
@@ -80,7 +81,9 @@ export function ResultCard({ result, variable, title, className }: { result: Ana
           <dd className="num mt-0.5 font-mono text-sm text-[var(--color-ink)]">{fmt(result.missingPct, 1)}%</dd>
         </div>
       </dl>
-      <div className="mt-3 text-[11px] text-[var(--color-ink-4)]">{s.method}</div>
+      <div className="mt-3 text-[11px] text-[var(--color-ink-4)]">
+        {s.method} · {singleSeriesPolicy(s.alpha)}
+      </div>
     </motion.div>
   );
 }

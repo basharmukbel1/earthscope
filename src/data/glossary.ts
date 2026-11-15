@@ -91,7 +91,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   fdr: {
     term: "False discovery rate",
     short: "Controls false alarms when testing many locations at once.",
-    long: "Testing hundreds of map points at α = 0.05 would produce ~5% false 'significant' trends by chance. The Benjamini–Hochberg FDR procedure (Wilks 2016) keeps the expected share of false discoveries below q = 0.10.",
+    long: "Testing hundreds of map points at α = 0.05 would produce ~5% false 'significant' trends by chance. The Benjamini–Hochberg FDR procedure (Wilks 2016) keeps the expected share of false discoveries below q = 0.05 — EARTHSCOPE uses it for the global Trend Atlas, while a single time series is significant when p < 0.05.",
   },
 };
 

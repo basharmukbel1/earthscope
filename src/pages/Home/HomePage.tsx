@@ -8,6 +8,7 @@ import { GlobeSlot } from "@/components/layout/GlobeSlot";
 import { loadAtlas } from "@/services/atlas";
 import { subsolarPoint } from "@/utils/sun";
 import { fmtLat, fmtLon } from "@/utils/format";
+import { ATLAS_FDR_Q } from "@/data/significance";
 import { ChallengeSection } from "./ChallengeSection";
 import { DiscoverySection } from "./DiscoverySection";
 import { ScienceSection } from "./ScienceSection";
@@ -118,7 +119,7 @@ function Hero() {
           <Telemetry
             k="Globe markers"
             v={atlas ? `▲ ${atlas.points.filter((p) => p.sig && p.slope > 0).length} wetter · ▼ ${atlas.points.filter((p) => p.sig && p.slope < 0).length} drier` : "Loading trend atlas…"}
-            hint={atlas ? `Significant precipitation trends · NASA POWER ${atlas.startYear}–${atlas.endYear}` : undefined}
+            hint={atlas ? `Significant precipitation trends (FDR q < ${ATLAS_FDR_Q}) · NASA POWER ${atlas.startYear}–${atlas.endYear}` : undefined}
           />
         </div>
       </motion.div>

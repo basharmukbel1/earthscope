@@ -13,6 +13,7 @@ import { AI_ENDPOINT, answer, suggestedPrompts, type AnalystBlock, type AnalystR
 import { fmtP, fmtSigned } from "@/utils/format";
 import { resultAnnualUnit } from "@/utils/trend";
 import { cn } from "@/utils/cn";
+import { singleSeriesPolicy } from "@/data/significance";
 
 interface Msg {
   id: number;
@@ -110,6 +111,7 @@ export default function AIScientistPage() {
               {AI_ENDPOINT
                 ? "Answers are written by a language model that sees only your computed results. The measured evidence shown with each answer comes straight from your data."
                 : "Answers come only from your computed results. No numbers are invented, and every possible explanation is labelled as an untested hypothesis."}
+              <span className="mt-1.5 block text-[var(--color-ink-3)]">{singleSeriesPolicy(entries[0]?.result.summary.alpha)}</span>
             </div>
           </aside>
 

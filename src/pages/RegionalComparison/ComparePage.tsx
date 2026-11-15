@@ -168,7 +168,7 @@ function Comparison({ group, onRemove }: { group: ReadyEntry[]; onRemove: (id: s
       )}
 
       <div className="grid gap-6 xl:grid-cols-[1.25fr_1fr]">
-        <ChartFrame eyebrow="Fig. 1 · Trend rates" title={`${v.name}: trend per decade with 95% CI`} subtitle="Filled = significant; hollow = not significant. Opposite-signed significant trends are bracketed." unit={`${unit}/decade`}>
+        <ChartFrame eyebrow="Fig. 1 · Trend rates" title={`${v.name}: trend per decade with 95% CI`} subtitle={`Filled = significant (p < ${group[0].result.summary.alpha} for that region's own series); hollow = not significant. Opposite-signed significant trends are bracketed.`} unit={`${unit}/decade`}>
           <ForestPlot rows={rows} ariaLabel={`Trend per decade of ${v.name} by region with confidence intervals`} decimals={v.decimals} highlightOpposing />
         </ChartFrame>
         <ChartFrame eyebrow="Fig. 2 · Study areas" title="Regions compared">
