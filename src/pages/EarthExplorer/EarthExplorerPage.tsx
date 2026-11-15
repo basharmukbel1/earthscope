@@ -36,13 +36,14 @@ export default function EarthExplorerPage() {
   const [atlas, setAtlas] = useState<AtlasLayer | null>(null);
   const [showAtlas, setShowAtlas] = useState(true);
   const [direction, setDirection] = useState<"all" | "increasing" | "decreasing">("all");
-  const [significance, setSignificance] = useState<"all" | "significant" | "not-significant">("all");
+  // Readable by default: significant trends only; the filter below reveals the rest.
+  const [significance, setSignificance] = useState<"all" | "significant" | "not-significant">("significant");
   const initialLayer = params.get("layer");
   const [layerId, setLayerId] = useState<string>(initialLayer && getGibsLayer(initialLayer) ? initialLayer : "");
   const layer = getGibsLayer(layerId);
   const months = useMemo(() => (layer ? availableMonths(layer, 300) : []), [layer]);
   const [month, setMonth] = useState<string>("");
-  const [opacity, setOpacity] = useState(0.85);
+  const [opacity, setOpacity] = useState(0.55);
   const [borders, setBorders] = useState(true);
   const [night, setNight] = useState(true);
   const [regions, setRegions] = useState<Region[]>([]);
@@ -332,25 +333,29 @@ function Legend({ layerLegend }: { layerLegend?: string }) {
       <div className="label-mono mb-2">Legend</div>
       <ul className="space-y-1.5 text-xs text-[var(--color-ink-2)]">
         <li className="flex items-center gap-2">
-          <span className="w-4 text-center text-[var(--color-rise)]">▲</span> Increasing trend · significant
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="w-4 text-center text-[var(--color-fall)]">▼</span> Decreasing trend · significant
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="flex w-4 justify-center">
-            <span className="h-2.5 w-2.5 rounded-full border border-[var(--color-flat)]" />
+          <span className="flex w-8 items-end justify-center gap-0.5 text-[var(--color-ink-3)]">
+            <span className="text-[8px] leading-none">▲</span>
+            <span className="text-[13px] leading-none">▲</span>
           </span>
-          Not significant (after FDR control)
+          Triangle size = size of the trend
         </li>
         <li className="flex items-center gap-2">
-          <span className="w-4 text-center text-[var(--color-ink-4)]">·</span> Marker size ∝ trend magnitude
+          <span className="w-8 text-center">
+            <span className="text-[var(--color-rise)]">▲</span> <span className="text-[var(--color-fall)]">▼</span>
+          </span>
+          Colour = direction: rising · falling
         </li>
         <li className="flex items-center gap-2">
-          <span className="h-0.5 w-4 bg-[var(--color-ice)] shadow-[0_0_6px_var(--color-ice)]" /> Selected region boundary
+          <span className="flex w-8 justify-center">
+            <span className="h-1.5 w-1.5 rounded-full border border-[var(--color-flat)] opacity-70" />
+          </span>
+          Faint dot = not significant (shown with “All”)
         </li>
         <li className="flex items-center gap-2">
-          <span className="hatch-missing h-3 w-4 rounded-sm border border-[var(--color-line)]" /> No data / transparent in imagery
+          <span className="flex w-8 justify-center">
+            <span className="h-0.5 w-4 bg-[var(--color-ice)] shadow-[0_0_6px_var(--color-ice)]" />
+          </span>
+          Selected region
         </li>
       </ul>
       {layerLegend && (

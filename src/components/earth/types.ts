@@ -120,7 +120,8 @@ export function atlasSlopeScale(points: readonly AtlasPoint[]): number {
 
 /** Marker diameter in CSS px. */
 export function atlasMarkerSize(p: AtlasPoint, scale: number): number {
-  if (atlasKind(p) === "flat") return 6;
+  // Not significant: a small, faint hollow dot (only drawn when the filter shows them).
+  if (atlasKind(p) === "flat") return 4;
   const s = Math.min(1, Math.abs(p.slope) / (scale || 1));
   return 7 + 8 * Math.sqrt(s);
 }
