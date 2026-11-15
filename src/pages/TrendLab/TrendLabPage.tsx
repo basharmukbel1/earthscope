@@ -17,6 +17,7 @@ import { analyzeSeries, compareMethods, monthlyClimatology, movingAverage, simul
 import { annualTrendOverlay, pctPerDecade, resultAnnualUnit } from "@/utils/trend";
 import { fmt, fmtP, fmtPct, fmtSigned } from "@/utils/format";
 import { RESOURCES } from "@/data/resources";
+import { plainSentence } from "@/utils/plainSentence";
 import { cn } from "@/utils/cn";
 
 type MethodTab = "mk-sen" | "ols-ar1" | "seasonal";
@@ -144,6 +145,7 @@ function ActiveLab({ entry, tab, setTab }: { entry: ReadyEntry; tab: MethodTab; 
 
   return (
     <div className="space-y-6">
+      <p className="text-pretty text-sm leading-relaxed text-[var(--color-ink)]">{plainSentence(r, v, entry.region?.name)}</p>
       {/* Statistical result cards */}
       <div className="grid gap-px overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-2 lg:grid-cols-4">
         <div className="bg-[var(--color-abyss)] p-5">

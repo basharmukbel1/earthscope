@@ -18,6 +18,7 @@ import { annualTrendOverlay, resultAnnualUnit } from "@/utils/trend";
 import { fmt, fmtP, fmtSigned } from "@/utils/format";
 import { normalQuantile } from "@/stats";
 import { cn } from "@/utils/cn";
+import { plainSentence } from "@/utils/plainSentence";
 
 const REGION_COLORS = ["var(--color-ice)", "var(--color-cyan)", "#f5c56b", "#c9a7ff"];
 
@@ -166,6 +167,14 @@ function Comparison({ group, onRemove }: { group: ReadyEntry[]; onRemove: (id: s
           </div>
         </div>
       )}
+
+      <ul className="space-y-1.5" aria-label="Results in plain words">
+        {group.map((e) => (
+          <li key={e.series.id} className="text-pretty text-sm leading-relaxed text-[var(--color-ink)]">
+            {plainSentence(e.result, v, e.region?.name)}
+          </li>
+        ))}
+      </ul>
 
       <div className="grid gap-6 xl:grid-cols-[1.25fr_1fr]">
         <ChartFrame eyebrow="Fig. 1 · Trend rates" title={`${v.name}: trend per decade with 95% CI`} subtitle={`Filled = significant (p < ${group[0].result.summary.alpha} for that region's own series); hollow = not significant. Opposite-signed significant trends are bracketed.`} unit={`${unit}/decade`}>

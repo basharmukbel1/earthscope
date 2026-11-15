@@ -6,9 +6,10 @@ import { fmt, fmtP, fmtPct, fmtSigned } from "@/utils/format";
 import { pctPerDecade, resultAnnualUnit } from "@/utils/trend";
 import { cn } from "@/utils/cn";
 import { singleSeriesPolicy } from "@/data/significance";
+import { plainSentence } from "@/utils/plainSentence";
 
 /** Primary scientific result: direction, magnitude, CI, p, n — with significance shown by glyph + label + line style. */
-export function ResultCard({ result, variable, title, className }: { result: AnalysisResult; variable: Variable; title?: string; className?: string }) {
+export function ResultCard({ result, variable, title, className, regionName }: { result: AnalysisResult; variable: Variable; title?: string; className?: string; regionName?: string }) {
   const s = result.summary;
   const unit = `${resultAnnualUnit(result, variable)} / decade`;
   const tone = !s.significant ? "var(--color-flat)" : s.direction === "increasing" ? "var(--color-rise)" : "var(--color-fall)";
@@ -28,6 +29,8 @@ export function ResultCard({ result, variable, title, className }: { result: Ana
         </div>
         <TrendBadge direction={s.direction} significant={s.significant} compact />
       </div>
+
+      <p className="mb-3 text-pretty text-[13px] leading-relaxed text-[var(--color-ink)]">{plainSentence(result, variable, regionName)}</p>
 
       <div className="flex items-baseline gap-2">
         <span className="num font-display text-[2.1rem] leading-none tracking-[-0.03em]" style={{ color: tone }}>

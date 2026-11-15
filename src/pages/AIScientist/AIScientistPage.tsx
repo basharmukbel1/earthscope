@@ -14,6 +14,7 @@ import { fmtP, fmtSigned } from "@/utils/format";
 import { resultAnnualUnit } from "@/utils/trend";
 import { cn } from "@/utils/cn";
 import { singleSeriesPolicy } from "@/data/significance";
+import { plainSentence } from "@/utils/plainSentence";
 
 interface Msg {
   id: number;
@@ -91,6 +92,7 @@ export default function AIScientistPage() {
                       </span>
                       <TrendBadge direction={e.result.summary.direction} significant={e.result.summary.significant} compact />
                     </div>
+                    <p className="mt-1.5 text-[12px] leading-snug text-[var(--color-ink-2)]">{plainSentence(e.result, e.variable, e.region?.name)}</p>
                     <Sparkline points={e.result.annual} height={34} className="mt-2" ariaLabel={`Annual ${e.variable.name} sparkline`} />
                     <div className="num mt-1 font-mono text-[11px] text-[var(--color-ink-3)]">
                       {fmtSigned(e.result.summary.perDecade, e.variable.decimals)} {resultAnnualUnit(e.result, e.variable)}/dec · p {fmtP(e.result.summary.p)}

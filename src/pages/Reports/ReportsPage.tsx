@@ -18,6 +18,7 @@ import { EmptyState } from "@/components/ui/States";
 import { annualTrendOverlay, pctPerDecade, resultAnnualUnit } from "@/utils/trend";
 import { fmt, fmtP, fmtPct, fmtSigned } from "@/utils/format";
 import { cn } from "@/utils/cn";
+import { plainSentence } from "@/utils/plainSentence";
 
 const METHOD_REFS = [
   "Mann, H. B. (1945). Nonparametric tests against trend. Econometrica, 13(3), 245–259.",
@@ -277,6 +278,11 @@ function ReportDocument({ report }: { report: SavedReport }) {
       </Section>
 
       <Section n={5} title="Results">
+        <ul className="mb-4 space-y-1">
+          {items.map((i) => (
+            <li key={i.series.id}>{plainSentence(i.result, i.variable, i.region?.name)}</li>
+          ))}
+        </ul>
         <div className="-mx-1 overflow-x-auto">
           <table className="w-full min-w-[560px] text-left text-[13px]">
             <thead>

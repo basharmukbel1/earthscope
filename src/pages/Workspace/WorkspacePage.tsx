@@ -157,7 +157,7 @@ export default function WorkspacePage() {
               <aside className="min-w-0 space-y-4" aria-label="Statistical findings">
                 {active.result ? (
                   <>
-                    <ResultCard result={active.result} variable={active.variable} />
+                    <ResultCard result={active.result} variable={active.variable} regionName={active.region?.name} />
                     <FindingsTable entry={active} />
                     <Panel
                       eyebrow={<span className="text-[#c9c0ff]">Scientific interpretation</span>}
