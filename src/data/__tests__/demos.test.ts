@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import fs from "node:fs";
 import type { AnalysisResult, TimeSeries } from "@/types/domain";
 import { DEMOS, type DemoInvestigation } from "@/data/demos";
 import { resolveDemoRegions } from "@/services/demoCase";
@@ -11,14 +10,17 @@ import { analyse } from "@/store/investigation";
    analysis the app runs (store.analyse, headline Mann-Kendall + Sen, α = 0.05). */
 
 type Results = Map<string, AnalysisResult>; // key: `${regionName}|${variableId}`
+const snapshots = import.meta.glob<{ default: TimeSeries[] }>("../../../public/snapshots/*.json", { eager: true });
+const snapshot = (id: string) => Object.entries(snapshots).find(([path]) => path.endsWith(`/${id}.json`))?.[1].default;
 
 async function computeDemo(d: DemoInvestigation): Promise<Results> {
   const out: Results = new Map();
   for (const r of await resolveDemoRegions(d.regions)) {
     for (const v of d.variableIds) {
-      const file = `public/snapshots/${seriesId(r.id, v, d.startYear, d.endYear)}.json`;
-      const series = (JSON.parse(fs.readFileSync(file, "utf8")) as TimeSeries[])[0];
-      const entry = analyse(series, "mk-sen", 0.05);
+      const file = seriesId(r.id, v, d.startYear, d.endYear);
+      const series = snapshot(file)?.[0];
+      expect(series, `snapshot ${file}`).toBeDefined();
+      const entry = analyse(series!, "mk-sen", 0.05);
       expect(entry.result, `${d.id}: ${r.name} ${v}`).toBeDefined();
       out.set(`${r.name}|${v}`, entry.result!);
     }

@@ -14,6 +14,7 @@ import { DiscoverySection } from "./DiscoverySection";
 import { ScienceSection } from "./ScienceSection";
 import { InvestigationSection } from "./InvestigationSection";
 import { FinalCta } from "./FinalCta";
+import { QuickDemos } from "./QuickDemos";
 
 function useSubsolar() {
   const [p, setP] = useState(() => ({ ...subsolarPoint(), at: new Date() }));
@@ -150,6 +151,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <QuickDemos />
       <ChallengeSection />
       <DiscoverySection />
       <ScienceSection />
