@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EARTHSCOPE — Space Apps 2026 demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  :root { --void:#04060c; --abyss:#070b16; --surface:#0f1729; --line:rgba(148,180,255,.14); --ink:#e9f0ff; --ink2:#b7c3dc; --ink3:#8391ad; --cyan:#38e1ff; --ice:#a8d8ff; --rise:#5fd3a0; --fall:#ff8a6b; --flat:#8a97b1; --violet:#9b8cff; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--void); color: var(--ink); font-family: Inter, system-ui, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1280px; height: 720px; position: relative; overflow: hidden; page-break-after: always; padding: 56px 64px; background: radial-gradient(ellipse 70% 60% at 85% 10%, rgba(56,140,255,.10), transparent 70%), var(--void); }
+  .slide:last-child { page-break-after: auto; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); }
+  h1 { font-family: "Space Grotesk", sans-serif; font-weight: 500; letter-spacing: -.03em; line-height: 1.02; }
+  h2 { font-family: "Space Grotesk", sans-serif; font-weight: 500; font-size: 42px; letter-spacing: -.025em; line-height: 1.08; margin-top: 12px; }
+  p, li { color: var(--ink2); font-size: 18px; line-height: 1.5; }
+  .num { font-family: "JetBrains Mono", monospace; }
+  .foot { position: absolute; left: 64px; right: 64px; bottom: 26px; display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); }
+  .shot { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); background: var(--abyss); }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+  .cols { display: grid; gap: 40px; margin-top: 28px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: rgba(15,23,41,.6); }
+  .card b { color: var(--ink); font-weight: 600; }
+  .tag { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; color: var(--ink2); }
+  .up { color: var(--rise); } .down { color: var(--fall); } .ns { color: var(--flat); } .ai { color: var(--violet); }
+  ul { list-style: none; } ul li { position: relative; padding-left: 20px; margin-top: 8px; } ul li::before { content: ""; position: absolute; left: 0; top: 11px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
+  .big { font-family: "Space Grotesk", sans-serif; font-size: 54px; letter-spacing: -.03em; line-height: 1; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Title -->
+<section class="slide" style="padding:0">
+  <img src="img/hero.png" style="position:absolute;top:-8%;right:0;width:50%;height:116%;object-fit:cover;object-position:100% center" alt="" />
+  <div style="position:absolute;top:0;right:0;width:50%;height:100%;background:linear-gradient(180deg,rgba(4,6,12,1) 0%,rgba(4,6,12,0) 14%,rgba(4,6,12,0) 82%,rgba(4,6,12,1) 100%)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,6,12,1) 0%,rgba(4,6,12,1) 42%,rgba(4,6,12,.55) 55%,rgba(4,6,12,0) 75%)"></div>
+  <div style="position:relative;padding:72px 64px">
+    <div class="kicker">NASA Space Apps Challenge 2026 · Be An Earth System Trend Detective!</div>
+    <h1 style="font-size:92px;margin-top:28px">EARTHSCOPE</h1>
+    <p style="font-size:26px;color:var(--ink);margin-top:18px;max-width:640px;line-height:1.35">Ask a question about any place on Earth. EARTHSCOPE pulls 45 years of real NASA data and tells you what changed, by how much — and whether the change is statistically real.</p>
+    <p style="margin-top:34px;font-size:17px" class="num">Live app &nbsp;→&nbsp; <span style="color:var(--cyan)">earthscope-space-apps.netlify.app</span></p>
+    <p style="font-size:17px;margin-top:6px" class="num">Code &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→&nbsp; <span style="color:var(--cyan)">github.com/basharmukbel1/earthscope</span></p>
+    <p style="margin-top:34px;font-size:15px;color:var(--ink3)">Team AIstronauts · independent student project — not an official NASA product</p>
+  </div>
+</section>
+
+<!-- 2 · Problem → answer -->
+<section class="slide">
+  <div class="kicker">01 · The challenge</div>
+  <h2>Earth is always changing. Which changes are real?</h2>
+  <p style="margin-top:14px;max-width:1000px">Thousands of variables, noisy records, and neighbouring regions that can move in opposite directions. Students need a way to go from a simple question to a statistically honest answer.</p>
+  <div class="cols" style="grid-template-columns:repeat(4,1fr);gap:16px">
+    <div class="card"><div class="tag">1 · Identify</div><p style="margin-top:12px"><b>19 Earth-science variables</b> in plain language — temperature, rain, soil moisture, aerosols, ozone, sea ice, NDVI… with the mission behind each.</p></div>
+    <div class="card"><div class="tag">2 · Acquire</div><p style="margin-top:12px"><b>Live NASA POWER data</b> for any country, region or drawn box — every grid cell inside the border, area-weighted.</p></div>
+    <div class="card"><div class="tag">3 · Visualise</div><p style="margin-top:12px"><b>45-year monthly time series</b> (1981–2025): annual trend, monthly record, deseasonalised anomalies, seasonal shift.</p></div>
+    <div class="card"><div class="tag">4 · Test</div><p style="margin-top:12px"><b>Rate of change + significance</b>: Mann-Kendall, Sen's slope with 95% CI, autocorrelation-corrected regression, Seasonal Kendall.</p></div>
+  </div>
+  <p style="margin-top:26px;color:var(--ink)">The four challenge requirements — each one built and working in the app.</p>
+  <div class="foot"><span>EARTHSCOPE</span><span>2 / 7</span></div>
+</section>
+
+<!-- 3 · How it works -->
+<section class="slide">
+  <div class="kicker">02 · How it works</div>
+  <h2>From a question to a tested answer in seconds</h2>
+  <div class="cols" style="grid-template-columns:420px 1fr">
+    <ul>
+      <li><b style="color:var(--ink)">Ask</b> — “Is precipitation decreasing in Jordan?” A parser picks the variable and the place.</li>
+      <li><b style="color:var(--ink)">Fetch</b> — one NASA POWER request per grid cell (MERRA-2 / CERES), area-weighted inside the real country border; cached on the device.</li>
+      <li><b style="color:var(--ink)">Test</b> — trend tests on annual values and on deseasonalised monthly anomalies, with an AR(1) effective-sample-size correction.</li>
+      <li><b style="color:var(--ink)">Explain</b> — one plain sentence, the 95% confidence interval, the p-value, and how many years would be needed to detect the trend.</li>
+    </ul>
+    <div class="shot" style="height:470px"><img src="img/trendlab.png" alt="Trend Lab: method comparison and confidence band" /></div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE</span><span>3 / 7</span></div>
+</section>
+
+<!-- 4 · Honest result -->
+<section class="slide">
+  <div class="kicker">03 · A result, read honestly</div>
+  <h2>Is Jordan drying? Not yet provably.</h2>
+  <div class="cols" style="grid-template-columns:1fr 520px">
+    <div>
+      <div class="big down num">−1.90 <span style="font-size:22px;color:var(--ink3)">mm/yr per decade</span></div>
+      <p style="margin-top:14px">Yearly rainfall over Jordan's 28 NASA POWER grid cells, 1981–2025.</p>
+      <ul style="margin-top:14px">
+        <li>95% confidence interval <span class="num" style="color:var(--ink)">−8.93 … +5.78</span> — it includes zero.</li>
+        <li>Mann-Kendall <span class="num" style="color:var(--ink)">p = 0.63</span> → <span class="ns">◇ not significant</span>.</li>
+        <li>A trend this size would need <span class="num" style="color:var(--ink)">≈ 94 years</span> of data to detect; the record has 45.</li>
+      </ul>
+      <p style="margin-top:18px;color:var(--ink)">EARTHSCOPE says so plainly — and never shows significance by colour alone (▲ ▼ ◇ + label + line style).</p>
+    </div>
+    <div class="shot" style="height:470px"><img src="img/workspace.png" alt="Jordan precipitation workspace and result card" /></div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE</span><span>4 / 7</span></div>
+</section>
+
+<!-- 5 · Compare regions -->
+<section class="slide">
+  <div class="kicker">04 · Same variable, different places</div>
+  <h2>Compare regions on one axis</h2>
+  <div class="cols" style="grid-template-columns:1fr 360px;gap:32px">
+    <div class="shot" style="height:470px"><img src="img/compare.png" alt="Regional comparison: Cameroon, DR Congo, Tanzania" /></div>
+    <div>
+      <p><span class="up">▲</span> <b style="color:var(--ink)">Cameroon</b> is warming by about <span class="num">0.36 °C</span> per decade — significant (p &lt; 0.001).</p>
+      <p style="margin-top:12px"><span class="up">▲</span> <b style="color:var(--ink)">DR Congo</b> <span class="num">+0.36 °C</span> per decade — significant.</p>
+      <p style="margin-top:12px"><span class="ns">◇</span> <b style="color:var(--ink)">Tanzania</b> <span class="num">+0.04 °C</span> — not significant (p = 0.41).</p>
+      <p style="margin-top:22px">“Opposite trends” are only claimed when both regions are significant with opposite signs. Our own demo <i>Sahel vs Iberia</i> is phrased as a question — the data answer it: no.</p>
+    </div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE</span><span>5 / 7</span></div>
+</section>
+
+<!-- 6 · Globe + AI -->
+<section class="slide">
+  <div class="kicker">05 · Explore and explain</div>
+  <h2>A global trend map and an honest AI Scientist</h2>
+  <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px;margin-top:22px">
+    <div>
+      <div class="shot" style="height:300px"><img src="img/globe.png" alt="3D globe with significant temperature trends" /></div>
+      <p style="margin-top:14px">3D Earth ⇄ map unfold with <b style="color:var(--ink)">640 trend tests</b> per variable. Air temperature: <span class="up num">▲ 443</span> / <span class="down num">▼ 29</span> significant after Benjamini–Hochberg FDR q = 0.05. NASA GIBS imagery as context.</p>
+    </div>
+    <div>
+      <div class="shot" style="height:300px"><img src="img/ai.png" alt="AI Scientist refusing to answer with the wrong variable" /></div>
+      <p style="margin-top:14px"><span class="ai">AI Scientist</span> answers only from computed results: it states false premises first, never answers a rain question with temperature data, and offers one-click follow-up analyses.</p>
+    </div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE</span><span>6 / 7</span></div>
+</section>
+
+<!-- 7 · Credibility + links -->
+<section class="slide">
+  <div class="kicker">06 · Built to be trusted</div>
+  <h2>Real NASA data. Honest statistics. Open source.</h2>
+  <div class="cols" style="grid-template-columns:1fr 1fr;gap:40px">
+    <ul>
+      <li><b style="color:var(--ink)">Real data only</b> — NASA POWER (MERRA-2 / CERES), GIBS, GISTEMP, MODIS NDVI (ORNL DAAC), NSIDC Sea Ice Index. Every series shows its source and retrieval date; no numbers are fabricated.</li>
+      <li><b style="color:var(--ink)">Tested statistics</b> — 697 automated tests; the statistics engine is cross-checked against SciPy and pymannkendall.</li>
+      <li><b style="color:var(--ink)">One significance rule</b> — p &lt; 0.05 for one series; FDR q &lt; 0.05 for maps.</li>
+      <li><b style="color:var(--ink)">For students</b> — plain-language sentences, guided demos that open instantly, report export (PDF / CSV / JSON).</li>
+    </ul>
+    <div>
+      <div class="card"><p class="num" style="font-size:16px">Live app<br /><span style="color:var(--cyan)">https://earthscope-space-apps.netlify.app</span></p><p class="num" style="font-size:16px;margin-top:12px">Source code<br /><span style="color:var(--cyan)">https://github.com/basharmukbel1/earthscope</span></p></div>
+      <p style="margin-top:20px;font-size:14px;color:var(--ink3)">AI-use disclosure: AI coding assistants (Claude) helped write the code, documentation and these slides. The in-app AI Scientist is a deterministic rule-based analyst. Screenshots are real captures of the app. EARTHSCOPE is not an official NASA product.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Team AIstronauts · Space Apps 2026</span><span>7 / 7</span></div>
+</section>
+
+</body>
+</html>
