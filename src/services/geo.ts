@@ -4,6 +4,7 @@ import { feature as topoFeature } from "topojson-client";
 import type { BBox, Region } from "@/types/domain";
 import { NAMED_REGIONS, parseCoordinates } from "@/data/regions";
 import { POWER_GRID, snapToPowerGrid } from "./power";
+import { ordinal } from "@/utils/format";
 
 /* ==========================================================================
    Geography: country polygons (Natural Earth 1:50m via world-atlas), place
@@ -247,6 +248,6 @@ export function buildSamplePlan(region: Region, feature?: Feature): SamplePlan {
     stride,
     description: exactAll
       ? `Area-weighted mean of all ${pts.length} grid cells (0.5° × 0.625°) inside the region.`
-      : `Area-weighted mean of ${pts.length} grid cells sampled systematically (every ${stride}th cell) out of ≈${estCells} inside the region.`,
+      : `Area-weighted mean of ${pts.length} grid cells sampled systematically (every ${ordinal(stride)} cell) out of ≈${estCells} inside the region.`,
   };
 }

@@ -58,7 +58,7 @@ export const VARIABLES: Variable[] = [
     shortName: "T2M",
     category: "atmosphere",
     definition:
-      "How warm the air is about 2 meters above the ground — the temperature you would feel standing outside, averaged over each month.",
+      "How warm the air is about 2 metres above the ground — the temperature you would feel standing outside, averaged over each month.",
     whyItMatters:
       "The most direct indicator of a warming or cooling climate. Regional rates differ a lot: the Arctic and continental interiors warm faster than the oceans.",
     unit: "°C",
@@ -246,7 +246,7 @@ export const VARIABLES: Variable[] = [
     shortName: "GWETROOT",
     category: "land",
     definition:
-      "How much water is available to plant roots in roughly the top 1 meter of soil, from 0 (dry) to 1 (saturated).",
+      "How much water is available to plant roots in roughly the top 1 metre of soil, from 0 (dry) to 1 (saturated).",
     whyItMatters:
       "Changes slowly and integrates months of weather — a good indicator of long-term drying or wetting of a landscape.",
     unit: "0–1 (wetness)",
@@ -454,7 +454,7 @@ export const VARIABLES: Variable[] = [
     shortName: "chlor_a",
     category: "ocean",
     definition:
-      "The concentration of the green pigment of phytoplankton — microscopic ocean plants — estimated from the color of the sea.",
+      "The concentration of the green pigment of phytoplankton — microscopic ocean plants — estimated from the colour of the sea.",
     whyItMatters:
       "Phytoplankton are the base of the marine food web; trends show changing productivity, river nutrient runoff and algal blooms.",
     unit: "mg m⁻³",

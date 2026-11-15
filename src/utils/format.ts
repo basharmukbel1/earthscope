@@ -55,6 +55,13 @@ export function annualUnit(unit: string, agg: "mean" | "sum", sumFactor?: string
   return unit;
 }
 
+/** 1 → "1st", 2 → "2nd", 3 → "3rd", 4 → "4th", 11 → "11th", 22 → "22nd" … */
+export function ordinal(n: number): string {
+  const v = Math.abs(Math.trunc(n)) % 100;
+  const suffix = v >= 11 && v <= 13 ? "th" : (["th", "st", "nd", "rd"][v % 10] ?? "th");
+  return `${Math.trunc(n)}${suffix}`;
+}
+
 export function plural(n: number, word: string, pluralWord?: string) {
   return `${n} ${n === 1 ? word : (pluralWord ?? word + "s")}`;
 }

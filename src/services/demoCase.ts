@@ -44,5 +44,8 @@ export async function loadDemoSnapshots(demo: DemoInvestigation, regions: Region
   );
   const plans: Record<string, SamplePlan> = {};
   for (const r of regions) plans[r.id] = buildSamplePlan(r, await countryFeatureFor(r));
+  // Same deterministic sampling code as the snapshot build, so its description is exact
+  // (and uses the current wording, e.g. correct ordinals).
+  for (const s of series) if (plans[s.regionId]) s.provenance = { ...s.provenance, sampling: plans[s.regionId].description };
   return { series, plans };
 }

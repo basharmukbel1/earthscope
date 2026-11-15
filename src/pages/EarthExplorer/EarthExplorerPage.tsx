@@ -231,7 +231,7 @@ export default function EarthExplorerPage() {
                   <Layers className="h-3.5 w-3.5" /> Imagery layer · NASA GIBS
                 </div>
                 <Select aria-label="Imagery layer" value={layerId} onChange={(e) => setLayerId(e.target.value)}>
-                  <option value="">None — natural color Earth</option>
+                  <option value="">None — natural-colour Earth</option>
                   {DATA_LAYERS.map((l) => (
                     <option key={l.id} value={l.id}>
                       {getVariable(l.variableId ?? "")?.name ?? l.title}
@@ -362,7 +362,7 @@ function Legend({ layerLegend }: { layerLegend?: string }) {
       {layerLegend && (
         <div className="mt-3 border-t border-[var(--color-line)] pt-3">
           <div className="label-mono mb-1.5">Imagery scale (GIBS)</div>
-          <img src={layerLegend} alt="Color scale for the selected GIBS layer" className="w-full rounded bg-white/90 p-1" loading="lazy" />
+          <img src={layerLegend} alt="Colour scale for the selected GIBS layer" className="w-full rounded bg-white/90 p-1" loading="lazy" />
         </div>
       )}
     </section>

@@ -17,7 +17,7 @@ import { cn } from "@/utils/cn";
 import { fmtDateKey } from "@/utils/format";
 
 function ConnectorBadge({ v }: { v: Variable }) {
-  if (v.connector.kind === "power") return <Badge tone="cyan" title="Fetched live from NASA POWER in-app">● Analyze in-app · POWER</Badge>;
+  if (v.connector.kind === "power") return <Badge tone="cyan" title="Fetched live from NASA POWER in-app">● Analyse in-app · POWER</Badge>;
   if (v.connector.kind === "bundled") return <Badge tone="ice" title="Real data snapshot bundled with EARTHSCOPE">◆ Bundled real data</Badge>;
   return <Badge tone="neutral" title="Export a CSV from the linked tool and import it">↥ Import from {TOOL_INFO[v.connector.tools[0]].label}</Badge>;
 }
