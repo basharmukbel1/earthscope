@@ -104,6 +104,12 @@ function Hero() {
             Explore the Earth
           </ButtonLink>
         </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.9 }} className="mt-5 text-sm text-[var(--color-ink-3)]">
+          New here?{" "}
+          <Link to="/guide" className="text-[var(--color-ice)] underline-offset-4 hover:underline">
+            Read the 2-minute guide →
+          </Link>
+        </motion.div>
       </motion.div>
 
       {/* telemetry strip */}

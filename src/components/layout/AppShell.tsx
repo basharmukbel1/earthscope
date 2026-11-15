@@ -19,6 +19,7 @@ const TITLES: Record<string, string> = {
   "/ai-scientist": "AI Scientist · EARTHSCOPE",
   "/reports": "Scientific Reports · EARTHSCOPE",
   "/resources": "Resources & Data Sources · EARTHSCOPE",
+  "/guide": "How to use EARTHSCOPE",
 };
 
 /** Pages that render edge-to-edge under a transparent nav and hide the footer. */

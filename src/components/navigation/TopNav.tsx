@@ -16,6 +16,7 @@ const PRIMARY = [
 ];
 
 const MORE = [
+  { to: "/guide", label: "How to use EARTHSCOPE", note: "A 2-minute guide for first-time visitors" },
   { to: "/workspace", label: "Investigation Workspace", note: "Your active analysis" },
   { to: "/compare", label: "Regional Comparison", note: "Same variable, many regions" },
   { to: "/relationships", label: "Relationship Lab", note: "How variables move together" },

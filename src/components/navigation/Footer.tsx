@@ -5,6 +5,7 @@ const COLS = [
   {
     title: "Investigate",
     links: [
+      { to: "/guide", label: "How to use EARTHSCOPE" },
       { to: "/discover", label: "Discovery Studio" },
       { to: "/investigate", label: "New investigation" },
       { to: "/workspace", label: "Workspace" },

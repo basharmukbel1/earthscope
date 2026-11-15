@@ -14,6 +14,7 @@ const Relationships = lazy(() => import("@/pages/RelationshipLab/RelationshipPag
 const AIScientist = lazy(() => import("@/pages/AIScientist/AIScientistPage"));
 const Reports = lazy(() => import("@/pages/Reports/ReportsPage"));
 const Resources = lazy(() => import("@/pages/Resources/ResourcesPage"));
+const Guide = lazy(() => import("@/pages/Guide/GuidePage"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 export const ROUTES = {
@@ -28,6 +29,7 @@ export const ROUTES = {
   ai: "/ai-scientist",
   reports: "/reports",
   resources: "/resources",
+  guide: "/guide",
 } as const;
 
 export const router = createBrowserRouter([
@@ -47,6 +49,7 @@ export const router = createBrowserRouter([
       { path: "ai-scientist", element: <AIScientist /> },
       { path: "reports", element: <Reports /> },
       { path: "resources", element: <Resources /> },
+      { path: "guide", element: <Guide /> },
       { path: "*", element: <NotFound /> },
     ],
   },

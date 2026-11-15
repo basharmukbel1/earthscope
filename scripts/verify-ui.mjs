@@ -14,7 +14,7 @@ const widthsArg = args.find((a) => a.startsWith("--widths="));
 const headed = args.includes("--headed");
 const ROUTES = routesArg
   ? routesArg.slice(9).split(",")
-  : ["/", "/discover", "/investigate", "/workspace", "/trend-lab", "/explorer", "/compare", "/relationships", "/ai-scientist", "/reports", "/resources", "/nope-404"];
+  : ["/", "/discover", "/investigate", "/workspace", "/trend-lab", "/explorer", "/compare", "/relationships", "/ai-scientist", "/reports", "/resources", "/guide", "/nope-404"];
 const VIEWPORTS = (widthsArg ? widthsArg.slice(9).split(",").map(Number) : [1440, 1280, 834, 390]).map((w) => ({
   width: w,
   height: w >= 1280 ? 900 : w >= 800 ? 1112 : 844,
