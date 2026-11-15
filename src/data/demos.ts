@@ -12,6 +12,15 @@ export interface DemoRegionRef {
   ref: string;
 }
 
+/**
+ * A pattern a demo's title takes for granted (e.g. "How fast is the Arctic warming?"
+ * presupposes warming). Every claim is checked against the computed result in
+ * src/data/__tests__/demos.test.ts; titles without a verified claim must be neutral questions.
+ */
+export type DemoClaim =
+  | { kind: "significant-trend"; variableId: string; region: string; direction: "increasing" | "decreasing" }
+  | { kind: "opposite-significant"; variableId: string; regions: [string, string] };
+
 export interface DemoInvestigation {
   id: string;
   title: string;
@@ -23,6 +32,8 @@ export interface DemoInvestigation {
   narration: string[]; // shown step-by-step in "Watch a demo"
   why: string;
   page: "workspace" | "compare" | "relationships";
+  /** Patterns the title presupposes — must be backed by the computed results (see DemoClaim). */
+  claims?: DemoClaim[];
 }
 
 export const DEMOS: DemoInvestigation[] = [
@@ -67,6 +78,7 @@ export const DEMOS: DemoInvestigation[] = [
   {
     id: "arctic-warming",
     title: "How fast is the Arctic warming?",
+    claims: [{ kind: "significant-trend", variableId: "t2m", region: "Svalbard & Barents Sea", direction: "increasing" }],
     question: "Is air temperature increasing around Svalbard?",
     variableIds: ["t2m"],
     regions: [{ kind: "named", ref: "arctic-svalbard" }],
@@ -113,7 +125,7 @@ export const DEMOS: DemoInvestigation[] = [
   },
   {
     id: "sahel-vs-iberia",
-    title: "Opposite rainfall trends: Sahel vs Iberia",
+    title: "Do the Sahel and Iberia show opposite rainfall trends?",
     question: "Are precipitation trends in the Sahel and Iberia moving in opposite directions?",
     variableIds: ["precip"],
     regions: [
