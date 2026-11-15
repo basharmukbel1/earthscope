@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #04060c; color: #e9f0ff; font-family: Inter, sans-serif; }
+  .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: center; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,6,12,.55), rgba(4,6,12,.25) 40%, rgba(4,6,12,.85)); }
+  .dark { position: absolute; inset: 0; background: rgba(4,6,12,.72); }
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .mono { font-family: "JetBrains Mono", monospace; letter-spacing: .28em; text-transform: uppercase; color: #38e1ff; font-size: 26px; }
+  .display { font-family: "Space Grotesk", sans-serif; font-weight: 500; letter-spacing: -.03em; line-height: 1.02; }
+  .frame { position: absolute; border: 1px solid rgba(148,180,255,.25); border-radius: 22px; overflow: hidden; box-shadow: 0 60px 120px -40px #000; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+  .label { position: absolute; left: 0; right: 0; bottom: 92px; text-align: center; font-family: "Space Grotesk", sans-serif; font-size: 46px; letter-spacing: -.01em; text-shadow: 0 4px 30px #000; }
+  .chip { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 30px; letter-spacing: .2em; padding: 14px 30px; border: 1px solid rgba(56,225,255,.5); border-radius: 999px; color: #38e1ff; background: rgba(4,6,12,.8); margin: 0 14px; opacity: .25; }
+  #cap { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: 27px; color: #cfd9ee; text-shadow: 0 2px 12px #000; z-index: 50; }
+  #cap span { background: rgba(4,6,12,.7); padding: 6px 18px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<!-- 1 · team title 0–4 -->
+<div class="scene" id="s1"><div class="center">
+  <div class="mono">NASA Space Apps Challenge 2026</div>
+  <div class="display" style="font-size:190px;margin-top:34px">AIstronauts</div>
+  <div style="font-size:34px;color:#b7c3dc;margin-top:26px">Be An Earth System Trend Detective!</div>
+</div></div>
+<!-- 2 · problem 4–8 -->
+<div class="scene" id="s2"><img class="bg" id="b2" src="img/hero.png" style="object-position:92% center;transform:scale(1.9);transform-origin:80% 50%" /><div class="dark" style="background:rgba(4,6,12,.45)"></div>
+  <div class="center"><div class="display" id="t2a" style="font-size:120px">Earth is always changing.</div><div class="display" id="t2b" style="font-size:84px;color:#a8d8ff;margin-top:30px;opacity:0">But which changes are real?</div></div></div>
+<!-- 3 · intro 8–12 -->
+<div class="scene" id="s3"><img class="bg" id="b3" src="img/hero.png" /><div class="shade"></div>
+  <div class="label"><span class="display" style="font-size:64px">EARTHSCOPE</span> &nbsp;·&nbsp; Discover Earth's hidden changes</div></div>
+<!-- 4 · how 12–18 -->
+<div class="scene" id="s4"><div class="frame" id="f4" style="left:210px;top:70px;width:1500px;height:800px"><img id="i4a" src="img/demos.png" style="position:absolute;inset:0" /><img id="i4b" src="img/workspace.png" style="position:absolute;inset:0;opacity:0" /></div>
+  <div style="position:absolute;left:0;right:0;bottom:84px;text-align:center"><span class="chip" id="c1">ASK</span><span class="chip" id="c2">EXPLORE</span><span class="chip" id="c3">ANALYZE</span></div></div>
+<!-- 5 · evidence 18–24 -->
+<div class="scene" id="s5"><div class="frame" style="left:80px;top:90px;width:1060px;height:760px"><img id="i5" src="img/workspace.png" style="width:150%;height:auto;transform:translate(-33%,-8%)" /></div>
+  <div style="position:absolute;left:1200px;top:150px;width:640px">
+    <div class="mono" style="font-size:22px">Jordan · precipitation · 1981–2025</div>
+    <div class="display" style="font-size:120px;color:#ff8a6b;margin-top:18px">−1.90</div>
+    <div style="font-size:30px;color:#b7c3dc">mm/yr per decade</div>
+    <div style="font-size:32px;margin-top:34px;line-height:1.5">95% CI −8.93 … +5.78<br />p = 0.63 → <span style="color:#8a97b1">◇ not significant</span></div>
+    <div style="font-size:30px;margin-top:34px;color:#a8d8ff;line-height:1.4">EARTHSCOPE shows what the evidence actually supports.</div>
+  </div></div>
+<!-- 6 · big picture 24–27 -->
+<div class="scene" id="s6"><img class="bg" id="b6" src="img/globe.png" style="object-position:70% center" /><div class="shade"></div>
+  <div class="label">Real NASA data. Statistical evidence. Meaningful discovery.</div></div>
+<!-- 7 · closing 27–30 -->
+<div class="scene" id="s7"><img class="bg" id="b7" src="img/hero.png" style="object-position:92% center;transform:scale(1.6);transform-origin:80% 50%;opacity:.5" /><div class="center">
+  <div class="display" style="font-size:150px">EARTHSCOPE</div>
+  <div style="font-size:38px;color:#b7c3dc;margin-top:18px">Built by AIstronauts · NASA Space Apps Challenge 2026</div>
+  <div class="mono" style="margin-top:44px;font-size:32px;letter-spacing:.08em;text-transform:none">earthscope-space-apps.netlify.app</div>
+  <div style="font-size:20px;color:#8391ad;margin-top:40px">Real screenshots of the app · independent student project, not an official NASA product</div>
+</div></div>
+<div id="cap"><span></span></div>
+<script>
+const CAPS = [
+  [0, 2.2, "Meet AIstronauts."], [2.2, 5, "We built EARTHSCOPE for NASA Space Apps 2026."],
+  [5, 10.5, "Earth is constantly changing. But how do we know which trends are real?"],
+  [10.5, 18, "EARTHSCOPE turns questions about our planet into scientific investigations using NASA Earth data and statistical analysis."],
+  [18, 25.5, "Explore the evidence. Compare regions. Discover what the data really tells us."],
+  [25.5, 30, "EARTHSCOPE. Discover Earth's hidden changes."],
+];
+const SC = [["s1",0,4],["s2",4,8],["s3",8,12],["s4",12,18],["s5",18,24],["s6",24,27],["s7",27,30]];
+const $ = (id) => document.getElementById(id);
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const ease = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
+window.setT = (t) => {
+  for (const [id, a, b] of SC) {
+    const fin = id === "s1" ? ease((t - a) / 0.8) : ease((t - a + 0.25) / 0.5);
+    const fout = id === "s7" ? 1 : 1 - ease((t - b + 0.25) / 0.5);
+    $(id).style.opacity = Math.min(fin, fout);
+    $(id).style.display = t < a - 0.3 || t > b + 0.3 ? "none" : "block";
+  }
+  $("s1").firstElementChild.style.transform = `scale(${1 + 0.04 * t / 4})`;
+  $("b2").style.transform = `scale(${1.9 + 0.25 * clamp((t - 4) / 4)})`;
+  $("t2a").style.opacity = 1 - ease((t - 5.8) / 0.4) * 0.65; $("t2b").style.opacity = ease((t - 6) / 0.5);
+  $("b3").style.transform = `scale(${1.02 + 0.06 * clamp((t - 8) / 4)})`;
+  $("i4b").style.opacity = ease((t - 14.6) / 0.6);
+  $("f4").style.transform = `scale(${1 + 0.03 * clamp((t - 12) / 6)})`;
+  $("c1").style.opacity = t >= 12.3 ? 1 : .25; $("c2").style.opacity = t >= 14.2 ? 1 : .25; $("c3").style.opacity = t >= 16 ? 1 : .25;
+  $("i5").style.transform = `translate(${-33 + 3 * clamp((t - 18) / 6)}%, ${-8 - 6 * clamp((t - 18) / 6)}%)`;
+  $("b6").style.transform = `scale(${1.05 + 0.08 * clamp((t - 24) / 3)})`;
+  $("b7").style.transform = `scale(${1.6 + 0.1 * clamp((t - 27) / 3)})`;
+  const c = CAPS.find(([a, b]) => t >= a && t < b);
+  $("cap").firstElementChild.textContent = c ? c[2] : ""; $("cap").style.display = c ? "block" : "none";
+};
+setT(0);
+</script>
+</body>
+</html>
