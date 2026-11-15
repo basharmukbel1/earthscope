@@ -132,3 +132,6 @@ export const DEMOS: DemoInvestigation[] = [
 ];
 
 export const DEMO_BY_ID: Record<string, DemoInvestigation> = Object.fromEntries(DEMOS.map((d) => [d.id, d]));
+
+/** Where a demo's finished case opens. */
+export const demoPath = (d: DemoInvestigation) => (d.page === "compare" ? "/compare" : d.page === "relationships" ? "/relationships" : "/workspace");

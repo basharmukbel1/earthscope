@@ -5,6 +5,8 @@ import { getVariable } from "@/data/catalog";
 import { NAMED_REGION_BY_ID } from "@/data/regions";
 import { analyzeSeries } from "@/stats";
 import { fetchRegionSeries, loadBundledSeries, type FetchProgress } from "@/services/series";
+import { loadDemoSnapshots, resolveDemoRegions } from "@/services/demoCase";
+import type { DemoInvestigation } from "@/data/demos";
 import type { SamplePlan } from "@/services/geo";
 
 /* ==========================================================================
@@ -54,6 +56,8 @@ interface State {
   cancel: () => void;
   addSeries: (series: TimeSeries, region?: Region) => void;
   loadBundled: (snapshotId: string, variableId: string, question?: string) => Promise<void>;
+  /** Open a guided demo instantly from its precomputed real-data snapshots (falls back to a live run). */
+  openDemo: (demo: DemoInvestigation) => Promise<void>;
   setPrimary: (p: PrimaryMethod) => void;
   setAlpha: (a: number) => void;
   saveReport: (report: SavedReport) => void;
@@ -236,6 +240,46 @@ export const useInvestigation = create<State>()(
           warnings: [],
           usedSnapshot: true,
           history: [config, ...get().history].slice(0, 12),
+        });
+      },
+
+      openDemo: async (demo) => {
+        controller?.abort();
+        set({ status: "loading", error: null, warnings: [], progress: { done: 0, total: 1, phase: "snapshot", message: "Opening the precomputed demo…" } });
+        const regions = await resolveDemoRegions(demo.regions);
+        const { primary, alpha } = get();
+        const config: InvestigationConfig = {
+          id: newId(),
+          question: demo.question,
+          variableIds: demo.variableIds,
+          regions,
+          startYear: demo.startYear,
+          endYear: demo.endYear,
+          resolution: "monthly",
+          methods: ["mann-kendall", "sen", "ols", "ci", "seasonal"],
+          alpha,
+          createdAt: new Date().toISOString(),
+          demoId: demo.id,
+        };
+        const pre = await loadDemoSnapshots(demo, regions);
+        if (!pre) return get().run(config);
+        const series: Record<string, TimeSeries> = {};
+        const analyses: Record<string, AnalysisEntry> = {};
+        for (const s of pre.series) {
+          series[s.id] = s;
+          analyses[s.id] = analyse(s, primary, alpha);
+        }
+        set({
+          config,
+          series,
+          analyses,
+          plans: pre.plans,
+          status: "ready",
+          error: null,
+          progress: null,
+          warnings: [],
+          usedSnapshot: true,
+          history: [config, ...get().history.filter((h) => h.demoId !== demo.id)].slice(0, 12),
         });
       },
 

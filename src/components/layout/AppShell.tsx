@@ -5,6 +5,7 @@ import { TopNav } from "@/components/navigation/TopNav";
 import { Footer } from "@/components/navigation/Footer";
 import { useInvestigation } from "@/store/investigation";
 import { getVariable } from "@/data/catalog";
+import { DEMO_BY_ID } from "@/data/demos";
 
 const TITLES: Record<string, string> = {
   "/": "EARTHSCOPE — Discover Earth's Hidden Changes",
@@ -51,7 +52,10 @@ export function AppShell() {
     const s = useInvestigation.getState();
     const restorable = s.config && s.status === "idle" && Object.keys(s.series).length === 0 && s.config.regions.length > 0;
     const analysisPage = ["/workspace", "/trend-lab", "/compare", "/relationships", "/ai-scientist", "/reports"].includes(location.pathname);
-    if (restorable && analysisPage && s.config!.variableIds.some((id) => getVariable(id)?.connector.kind === "power")) void s.run(s.config!);
+    if (!restorable || !analysisPage) return;
+    const demo = s.config!.demoId ? DEMO_BY_ID[s.config!.demoId] : undefined;
+    if (demo) void s.openDemo(demo);
+    else if (s.config!.variableIds.some((id) => getVariable(id)?.connector.kind === "power")) void s.run(s.config!);
   }, [location.pathname]);
 
   return (

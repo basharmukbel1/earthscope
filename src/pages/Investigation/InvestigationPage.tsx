@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, ArrowRight, Check, CircleAlert, Crosshair, Pause, Play, Sparkles, SquareDashedMousePointer, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, CircleAlert, Crosshair, FastForward, Pause, Play, Sparkles, SquareDashedMousePointer, X } from "lucide-react";
 import type { InvestigationConfig, MethodId, Region } from "@/types/domain";
 import { CATEGORIES, VARIABLES, getVariable } from "@/data/catalog";
-import { DEMO_BY_ID, DEMOS } from "@/data/demos";
-import { NAMED_REGION_BY_ID, bboxRegion, parseCoordinates } from "@/data/regions";
-import { countryToRegion, findCountry } from "@/services/geo";
+import { DEMO_BY_ID, DEMOS, demoPath } from "@/data/demos";
+import { bboxRegion, parseCoordinates } from "@/data/regions";
+import { resolveDemoRegions } from "@/services/demoCase";
 import { parseQuestion, type ParsedQuestion } from "@/services/questionParser";
 import { newId, useInvestigation } from "@/store/investigation";
 import { RegionMap } from "@/components/maps/RegionMap";
@@ -36,24 +36,13 @@ const METHODS: { id: MethodId; label: string; desc: string }[] = [
   { id: "seasonal", label: "Seasonal analysis", desc: "Seasonal Kendall test + climatology shift between decades." },
 ];
 
-async function resolveDemoRegions(refs: { kind: "country" | "named"; ref: string }[]): Promise<Region[]> {
-  const out: Region[] = [];
-  for (const r of refs) {
-    if (r.kind === "named") {
-      const n = NAMED_REGION_BY_ID[r.ref];
-      if (n) out.push(n);
-    } else {
-      const c = await findCountry(r.ref);
-      if (c) out.push(countryToRegion(c));
-    }
-  }
-  return out;
-}
+
 
 export default function InvestigationPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const run = useInvestigation((s) => s.run);
+  const openDemo = useInvestigation((s) => s.openDemo);
   const setPrimary = useInvestigation((s) => s.setPrimary);
   const storePrimary = useInvestigation((s) => s.primary);
 
@@ -203,10 +192,9 @@ export default function InvestigationPage() {
           timer.current = window.setTimeout(tick, 3600);
         } else {
           setPlaying(false);
-          launch(
-            { question: demo.question, variableIds: demo.variableIds, regions: rs, startYear: demo.startYear, endYear: demo.endYear, demoId: demo.id },
-            demo.page === "compare" ? "/compare" : demo.page === "relationships" ? "/relationships" : "/workspace",
-          );
+          // The demo's data are precomputed (real NASA POWER snapshots), so the result opens instantly.
+          void openDemo(demo);
+          navigate(demoPath(demo));
         }
       };
       tick();
@@ -217,6 +205,14 @@ export default function InvestigationPage() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [demoId]);
+
+  const skipDemo = () => {
+    if (!demo) return;
+    if (timer.current) clearTimeout(timer.current);
+    setPlaying(false);
+    void openDemo(demo);
+    navigate(demoPath(demo));
+  };
 
   const stopDemo = () => {
     if (timer.current) clearTimeout(timer.current);
@@ -597,6 +593,9 @@ export default function InvestigationPage() {
                   <p className="text-sm leading-relaxed text-[var(--color-ink)]">{narration}</p>
                   {playing && (
                     <div className="mt-3 flex gap-2">
+                      <Button size="sm" variant="secondary" icon={<FastForward className="h-3.5 w-3.5" />} onClick={skipDemo}>
+                        Skip to results
+                      </Button>
                       <Button size="sm" variant="subtle" icon={<Pause className="h-3.5 w-3.5" />} onClick={stopDemo}>
                         Stop demo
                       </Button>

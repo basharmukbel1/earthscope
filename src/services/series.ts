@@ -29,7 +29,7 @@ export interface RegionSeriesResult {
   warnings: string[];
 }
 
-async function loadSnapshot(id: string): Promise<TimeSeries[] | null> {
+export async function loadSnapshot(id: string): Promise<TimeSeries[] | null> {
   try {
     const res = await fetch(`/snapshots/${encodeURIComponent(id)}.json`);
     if (!res.ok) return null;
@@ -37,6 +37,48 @@ async function loadSnapshot(id: string): Promise<TimeSeries[] | null> {
     return Array.isArray(data) ? data : null;
   } catch {
     return null;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Result cache: every completed regional request is kept in memory and in
+   localStorage (small: one aggregated series per variable), so going back and
+   forth — or reloading — is instant. Raw POWER point responses are cached
+   separately in IndexedDB (services/cache.ts). Storage errors are ignored.
+   -------------------------------------------------------------------------- */
+const memCache = new Map<string, RegionSeriesResult>();
+const LS_PREFIX = "earthscope:series:v1:";
+const LS_INDEX = "earthscope:series:v1:index";
+const LS_MAX = 24;
+const cacheKey = (regionId: string, ids: string[], start: number, end: number) => `${regionId}|${[...ids].sort().join(",")}|${start}-${end}`;
+
+function lsRead(key: string): RegionSeriesResult | null {
+  try {
+    const raw = localStorage.getItem(LS_PREFIX + key);
+    return raw ? (JSON.parse(raw) as RegionSeriesResult) : null;
+  } catch {
+    return null;
+  }
+}
+
+function lsWrite(key: string, value: RegionSeriesResult) {
+  try {
+    const index = (JSON.parse(localStorage.getItem(LS_INDEX) ?? "[]") as string[]).filter((k) => k !== key);
+    index.unshift(key);
+    while (index.length > LS_MAX) localStorage.removeItem(LS_PREFIX + index.pop());
+    const payload = JSON.stringify(value);
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        localStorage.setItem(LS_PREFIX + key, payload);
+        break;
+      } catch {
+        // Storage full: drop the oldest half and try again.
+        for (const k of index.splice(Math.max(1, Math.ceil(index.length / 2)))) localStorage.removeItem(LS_PREFIX + k);
+      }
+    }
+    localStorage.setItem(LS_INDEX, JSON.stringify(index));
+  } catch {
+    /* storage unavailable (private mode, disabled) — memory cache still works */
   }
 }
 
@@ -85,6 +127,15 @@ export async function fetchRegionSeries(
     );
   }
   if (powerVars.length === 0) return { series, plan: null, usedSnapshot: false, warnings };
+
+  const key = cacheKey(region.id, powerVars.map((v) => v.id), start, end);
+  const cached = memCache.get(key) ?? lsRead(key);
+  if (cached) {
+    memCache.set(key, cached);
+    const n = cached.plan?.points.length ?? 1;
+    opts.onProgress?.({ done: n, total: n, phase: "fetch", message: "Loaded from this device — no new download needed" });
+    return { ...cached, warnings: [...warnings, ...cached.warnings] };
+  }
 
   opts.onProgress?.({ done: 0, total: 1, phase: "plan", message: "Building spatial sampling plan…" });
   const feature = await countryFeatureFor(region);
@@ -157,5 +208,8 @@ export async function fetchRegionSeries(
       },
     });
   }
-  return { series, plan, usedSnapshot: false, warnings };
+  const result = { series, plan, usedSnapshot: false, warnings: [] as string[] };
+  memCache.set(key, result);
+  lsWrite(key, result);
+  return { ...result, warnings };
 }

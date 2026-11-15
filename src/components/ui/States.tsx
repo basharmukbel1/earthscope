@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "./Button";
@@ -78,7 +78,25 @@ export function ProgressBar({ value, max = 1, label }: { value: number; max?: nu
 }
 
 /** Scientific "acquisition" loader — shows real progress, not a fake spinner. */
+/** Remaining-time estimate from the observed download rate (shown once a couple of items have arrived). */
+function useEta(done: number, total: number): string | null {
+  const start = useRef<{ at: number; done: number } | null>(null);
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick((n) => n + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  // (Re)start the clock whenever a new request begins.
+  if (!start.current || done < start.current.done) start.current = { at: Date.now(), done };
+  const elapsed = (Date.now() - start.current.at) / 1000;
+  const got = done - start.current.done;
+  if (got < 2 || done >= total || elapsed < 1) return null;
+  const left = Math.max(1, Math.round(((total - done) * elapsed) / got));
+  return left < 60 ? `about ${left} s left` : `about ${Math.round(left / 60)} min left`;
+}
+
 export function AcquisitionLoader({ message, done, total }: { message: string; done: number; total: number }) {
+  const eta = useEta(done, total);
   return (
     <div className="flex flex-col items-center justify-center gap-5 px-6 py-14 text-center" aria-live="polite">
       <div className="relative h-16 w-16">
@@ -90,6 +108,10 @@ export function AcquisitionLoader({ message, done, total }: { message: string; d
       <div className="w-full max-w-sm">
         <p className="mb-3 text-sm text-[var(--color-ink-2)]">{message}</p>
         <ProgressBar value={done} max={total} />
+        <p className="num mt-2 h-4 font-mono text-[11px] text-[var(--color-ink-3)]">
+          {total > 1 ? `${Math.round((done / total) * 100)}%` : ""}
+          {eta ? ` · ${eta}` : ""}
+        </p>
       </div>
     </div>
   );
