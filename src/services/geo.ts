@@ -32,8 +32,41 @@ export function loadCountries(): Promise<CountryFeature[]> {
           return { ...f, id } as CountryFeature;
         });
     });
+    // Never cache a failure (e.g. a dropped connection): the next call retries.
+    countriesPromise.catch(() => {
+      countriesPromise = null;
+    });
   }
   return countriesPromise;
+}
+
+/** The country polygon for a region: by id, then by name, then the country containing its centre. */
+export function matchCountry(region: Region, countries: CountryFeature[]): CountryFeature | undefined {
+  if (region.kind !== "country") return undefined;
+  return (
+    countries.find((c) => c.id === region.countryId) ??
+    countries.find((c) => c.properties.name === region.name) ??
+    countries.find((c) => geoContains(c, region.center))
+  );
+}
+
+/**
+ * Bounding box to fit a map view on. Countries with far-flung islands across the
+ * 180° meridian (USA, Russia, New Zealand, Fiji…) have a world-spanning box, so we
+ * fit on their largest polygon (the mainland) instead.
+ */
+export function viewBBoxFor(f: CountryFeature): BBox {
+  const full = featureBBox(f);
+  const span = (full.east < full.west ? full.east + 360 : full.east) - full.west;
+  if (f.geometry.type !== "MultiPolygon" || (full.east >= full.west && span <= 180)) return full;
+  let best: Feature | null = null;
+  let bestArea = -1;
+  for (const coordinates of f.geometry.coordinates) {
+    const part: Feature = { type: "Feature", geometry: { type: "Polygon", coordinates }, properties: {} };
+    const a = geoArea(part);
+    if (a > bestArea) (bestArea = a), (best = part);
+  }
+  return best ? featureBBox(best) : full;
 }
 
 const norm = (s: string) =>
