@@ -65,8 +65,8 @@ export function Footer() {
         <div className="container-x flex flex-col gap-2 py-5 text-[11px] text-[var(--color-ink-4)] md:flex-row md:items-center md:justify-between">
           <span className="font-mono uppercase tracking-[0.14em]">EARTHSCOPE · Earth System Trend Detection · v1.0</span>
           <span>
-            AI disclosure: AI tools assisted in building this software. The in-app “AI Scientist” is a rule-based analyst unless an LLM endpoint is
-            configured, and it labels which engine answered.
+            AI disclosure: AI tools assisted in building this software. The in-app “AI Scientist” is a rule-based analyst unless a language model
+            is connected, and it always labels which one answered.
           </span>
         </div>
       </div>

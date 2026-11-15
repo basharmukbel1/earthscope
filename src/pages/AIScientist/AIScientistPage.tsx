@@ -96,8 +96,8 @@ export default function AIScientistPage() {
                 <AIBadge engine={AI_ENDPOINT ? "remote" : "local"} />
               </div>
               {AI_ENDPOINT
-                ? "Answers are written by a language model through the EARTHSCOPE AI proxy. It receives only your computed statistics; measured evidence is always shown from the local engine."
-                : "This analyst is deterministic and rule-based: it reads only your computed results, never invents numbers, and labels every explanation as an untested hypothesis. Configure VITE_AI_ENDPOINT to add an LLM."}
+                ? "Answers are written by a language model that sees only your computed results. The measured evidence shown with each answer comes straight from your data."
+                : "Answers come only from your computed results. No numbers are invented, and every possible explanation is labelled as an untested hypothesis."}
             </div>
           </aside>
 

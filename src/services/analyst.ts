@@ -402,7 +402,7 @@ export async function answer(question: string, ctx: AnalystContext): Promise<Ana
       sources: local.sources,
     };
   } catch (e) {
-    return { ...local, blocks: [{ type: "caution", text: `AI endpoint unavailable (${(e as Error).message}); answered with the rule-based analyst.` }, ...local.blocks] };
+    return { ...local, blocks: [{ type: "caution", text: "The language model didn't respond, so the rule-based analyst answered instead." }, ...local.blocks] };
   }
 }
 

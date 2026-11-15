@@ -60,7 +60,7 @@ export default function ResourcesPage() {
             Science Program.” Imagery courtesy of NASA GIBS / ESDIS. Sea-ice data courtesy of NSIDC.
           </p>
           <p className="mt-3">
-            AI disclosure: AI coding assistants were used to help build this software. The in-app AI Scientist is a deterministic rule-based analyst by default; when an LLM endpoint is configured, answers are labelled as model-generated.
+            AI disclosure: AI coding assistants were used to help build this software. The in-app AI Scientist is a deterministic rule-based analyst by default; when a language model is connected, its answers are labelled as model-generated.
           </p>
         </section>
       </div>

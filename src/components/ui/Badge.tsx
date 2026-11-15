@@ -96,11 +96,11 @@ export function SourceBadge({ provenance, className }: { provenance: SeriesProve
 
 export function AIBadge({ engine }: { engine: "local" | "remote" }) {
   return (
-    <Badge tone="violet" title={engine === "local" ? "Deterministic rule-based analyst; uses only your computed results" : "Language model via the EARTHSCOPE AI proxy"}>
+    <Badge tone="violet" title={engine === "local" ? "Deterministic rule-based analyst; uses only your computed results" : "Written by a language model that sees only your computed results"}>
       <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
         <path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z" fill="currentColor" />
       </svg>
-      {engine === "local" ? "Rule-based analyst" : "AI (LLM)"}
+      {engine === "local" ? "Rule-based analyst" : "AI language model"}
     </Badge>
   );
 }

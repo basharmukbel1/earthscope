@@ -31,7 +31,7 @@ export function PageLoader() {
           <div className="absolute inset-0 rounded-full border border-[var(--color-line-strong)]" />
           <div className="absolute inset-0 animate-spin rounded-full border border-transparent border-t-[var(--color-cyan)] [animation-duration:1.2s]" />
         </div>
-        <span className="label-mono">Loading module</span>
+        <span className="label-mono">Loading page</span>
       </div>
     </div>
   );
