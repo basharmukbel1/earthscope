@@ -36,6 +36,7 @@ export default function EarthExplorerPage() {
   const [atlas, setAtlas] = useState<AtlasLayer | null>(null);
   const [showAtlas, setShowAtlas] = useState(true);
   const [direction, setDirection] = useState<"all" | "increasing" | "decreasing">("all");
+  // (Bottom-right corner is kept clear: the free Netlify plan injects a "Powered by Netlify" badge there.)
   // Readable by default: significant trends only; the filter below reveals the rest.
   const [significance, setSignificance] = useState<"all" | "significant" | "not-significant">("significant");
   const initialLayer = params.get("layer");
@@ -186,7 +187,7 @@ export default function EarthExplorerPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="glass absolute bottom-4 left-4 top-[calc(var(--nav-h)+1rem)] z-20 flex w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[var(--radius-xl)] shadow-[var(--shadow-float)]"
+            className="glass absolute bottom-20 left-4 top-[calc(var(--nav-h)+1rem)] sm:bottom-4 z-20 flex w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[var(--radius-xl)] shadow-[var(--shadow-float)]"
             aria-label="Explorer controls"
           >
             <div className="flex items-center justify-between border-b border-[var(--color-line)] px-4 py-3">
@@ -286,7 +287,7 @@ export default function EarthExplorerPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
-            className="glass absolute bottom-4 right-4 z-20 w-[min(320px,calc(100vw-2rem))] rounded-[var(--radius-xl)] p-4 shadow-[var(--shadow-float)]"
+            className="glass absolute bottom-20 right-4 z-20 w-[min(320px,calc(100vw-2rem))] rounded-[var(--radius-xl)] p-4 shadow-[var(--shadow-float)]"
             aria-label="Selected regions"
           >
             <div className="label-mono mb-2">Selected regions</div>
@@ -318,7 +319,7 @@ export default function EarthExplorerPage() {
 
       {/* Hint */}
       {regions.length === 0 && (
-        <div className="pointer-events-none absolute bottom-6 right-6 z-10 hidden max-w-xs text-right text-xs text-[var(--color-ink-3)] md:block">
+        <div className="pointer-events-none absolute bottom-20 right-6 z-10 hidden max-w-xs text-right text-xs text-[var(--color-ink-3)] md:block">
           <Badge tone="neutral" className="mb-2">Interactive</Badge>
           <p>Drag to rotate · scroll to zoom · click a country to select it · unfold to the map to draw a box.</p>
         </div>
