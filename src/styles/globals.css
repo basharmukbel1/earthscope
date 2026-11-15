@@ -1,0 +1,174 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    background: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-void);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgb(56 225 255 / 0.28); color: #fff; }
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: var(--tracking-display); font-weight: 500; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  input, select, textarea, button { font: inherit; color: inherit; }
+  img, svg, canvas { display: block; }
+  /* thin, quiet scrollbars */
+  * { scrollbar-width: thin; scrollbar-color: rgb(148 180 255 / 0.18) transparent; }
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-thumb { background: rgb(148 180 255 / 0.18); border-radius: 8px; }
+}
+
+@layer components {
+  /* Mono telemetry label: LAT 31.95°N · LON 35.93°E */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum", "zero"; }
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tightest);
+    text-transform: uppercase;
+    line-height: 0.9;
+  }
+  /* Hairline panel used across the app */
+  .panel {
+    background: linear-gradient(180deg, rgb(19 29 51 / 0.72), rgb(14 22 40 / 0.72));
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .panel-solid {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+  .glass {
+    background: rgb(10 16 32 / 0.62);
+    border: 1px solid var(--color-line-strong);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  /* Instrument corner brackets (used sparingly on hero/explorer frames) */
+  .brackets { position: relative; }
+  .brackets::before, .brackets::after {
+    content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+    border-color: var(--color-line-bright); border-style: solid;
+  }
+  .brackets::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .brackets::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+  .skeleton {
+    background: linear-gradient(90deg, rgb(148 180 255 / 0.05) 25%, rgb(148 180 255 / 0.12) 50%, rgb(148 180 255 / 0.05) 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: var(--radius-sm);
+  }
+  .hatch-missing {
+    background-image: repeating-linear-gradient(135deg, rgb(148 180 255 / 0.16) 0 2px, transparent 2px 6px);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(148 180 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(148 180 255 / 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .container-x { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: var(--space-gutter); }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+}
+
+/* Light "paper" theme for scientific reports (screen + print). Charts read CSS
+   tokens, so they re-theme automatically inside .theme-paper. */
+.theme-paper {
+  --color-void: #ffffff;
+  --color-abyss: #f6f7f9;
+  --color-midnight: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f5f8;
+  --color-surface-3: #e9edf3;
+  --color-line: rgb(20 30 50 / 0.12);
+  --color-line-strong: rgb(20 30 50 / 0.22);
+  --color-line-bright: rgb(20 30 50 / 0.4);
+  --color-ink: #0b1220;
+  --color-ink-2: #2b3547;
+  --color-ink-3: #556074;
+  --color-ink-4: #7b8597;
+  --color-cyan: #0a7ea4;
+  --color-cyan-soft: rgb(10 126 164 / 0.1);
+  --color-ice: #1f5f9e;
+  --color-ice-soft: rgb(31 95 158 / 0.08);
+  --color-violet: #5b48d6;
+  --color-violet-soft: rgb(91 72 214 / 0.08);
+  --color-rise: #11875a;
+  --color-rise-soft: rgb(17 135 90 / 0.1);
+  --color-fall: #c2410c;
+  --color-fall-soft: rgb(194 65 12 / 0.1);
+  --color-flat: #6b7280;
+  --color-warn: #a16207;
+  --chart-grid: rgb(20 30 50 / 0.08);
+  --chart-axis: rgb(20 30 50 / 0.35);
+  --chart-label: #556074;
+  --chart-series: #1f5f9e;
+  --chart-series-2: #0a7ea4;
+  --chart-series-3: #5b48d6;
+  --chart-series-4: #a16207;
+  --chart-band: rgb(10 126 164 / 0.12);
+  --map-bg: #eef2f7;
+  --map-land: #dde4ee;
+  --map-border: rgb(20 30 50 / 0.35);
+  --map-graticule: rgb(20 30 50 / 0.07);
+  --map-vignette: rgba(255, 255, 255, 0);
+  color-scheme: light;
+  background: #fff;
+  color: var(--color-ink);
+}
+.theme-paper .panel,
+.theme-paper .glass { background: #fff; backdrop-filter: none; box-shadow: none; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html, body { background: #fff !important; color: #111 !important; }
+  .no-print, header[class*="fixed"], footer { display: none !important; }
+  .print-area { position: static !important; box-shadow: none !important; border: 0 !important; padding: 0 !important; }
+  .print-area * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .print-break { break-before: page; }
+  .avoid-break { break-inside: avoid; }
+  main { padding-top: 0 !important; }
+}

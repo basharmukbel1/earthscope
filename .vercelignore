@@ -1,0 +1,5 @@
+.verify
+.verify-*.log
+data-raw
+docs/guide-ar/img
+node_modules

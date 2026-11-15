@@ -1,0 +1,15 @@
+node_modules
+dist
+.verify
+*.log
+.env
+.env.local
+data-raw
+
+.vercel
+.env*
+.netlify
+.verify-dev.log
+.verify-preview.log
+.verify-preview2.log
+.claude/

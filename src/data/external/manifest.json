@@ -1,0 +1,254 @@
+{
+  "title": "EARTHSCOPE external (non-reanalysis) time-series snapshots",
+  "files": [
+    {
+      "file": "gistemp-global-monthly.json",
+      "id": "gistemp-global-monthly",
+      "title": "Global land–ocean temperature anomaly (GISTEMP v4)",
+      "source": "NASA GISS Surface Temperature Analysis (GISTEMP v4), Land-Ocean Temperature Index",
+      "url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+      "retrieved": "2026-11-15",
+      "unit": "°C anomaly vs 1951–1980",
+      "resolution": "monthly",
+      "kind": "in-situ",
+      "n": 1762,
+      "nValid": 1762,
+      "nMissing": 0,
+      "start": "1880-01",
+      "end": "2026-10",
+      "cors": false,
+      "corsHeader": null,
+      "corsNote": "No Access-Control-Allow-Origin header; additionally data.giss.nasa.gov rejected Node's fetch (connection reset with default UA, HTTP 403 with a custom UA) — fetched with curl."
+    },
+    {
+      "file": "ndvi-rondonia-16day.json",
+      "id": "ndvi-rondonia-16day",
+      "title": "NDVI, Amazon forest frontier, Rondônia (Brazil) — MODIS Terra 16-day",
+      "source": "NASA MODIS Terra MOD13Q1 v061 NDVI via ORNL DAAC MODIS Land Product Subsets API",
+      "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=-10&longitude=-62.9&band={250m_16_days_NDVI|250m_16_days_pixel_reliability}&startDate=AYYYYDDD&endDate=AYYYYDDD&kmAboveBelow=0&kmLeftRight=0",
+      "datesUrl": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/dates?latitude=-10&longitude=-62.9",
+      "retrieved": "2026-11-15",
+      "unit": "NDVI (unitless)",
+      "resolution": "daily",
+      "kind": "satellite",
+      "n": 614,
+      "nValid": 263,
+      "nMissing": 351,
+      "start": "2000-02-18",
+      "end": "2026-10-16",
+      "qa": {
+        "band": "250m_16_days_pixel_reliability",
+        "keptRanks": [
+          0
+        ],
+        "counts": {
+          "0": 263,
+          "1": 206,
+          "2": 0,
+          "3": 145,
+          "fill": 0
+        }
+      },
+      "cors": true,
+      "corsHeader": "http://localhost:5173",
+      "corsProbe": {
+        "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/bands",
+        "status": 200,
+        "accessControlAllowOrigin": "http://localhost:5173",
+        "browserFetchable": true
+      }
+    },
+    {
+      "file": "ndvi-rondonia-monthly.json",
+      "id": "ndvi-rondonia-monthly",
+      "title": "NDVI, Amazon forest frontier, Rondônia (Brazil) — MODIS Terra monthly mean",
+      "source": "NASA MODIS Terra MOD13Q1 v061 NDVI via ORNL DAAC MODIS Land Product Subsets API",
+      "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=-10&longitude=-62.9&band={250m_16_days_NDVI|250m_16_days_pixel_reliability}&startDate=AYYYYDDD&endDate=AYYYYDDD&kmAboveBelow=0&kmLeftRight=0",
+      "datesUrl": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/dates?latitude=-10&longitude=-62.9",
+      "retrieved": "2026-11-15",
+      "unit": "NDVI (unitless)",
+      "resolution": "monthly",
+      "kind": "satellite",
+      "n": 321,
+      "nValid": 178,
+      "nMissing": 143,
+      "start": "2000-02",
+      "end": "2026-10",
+      "qa": {
+        "band": "250m_16_days_pixel_reliability",
+        "keptRanks": [
+          0
+        ],
+        "counts": {
+          "0": 263,
+          "1": 206,
+          "2": 0,
+          "3": 145,
+          "fill": 0
+        }
+      },
+      "cors": true,
+      "corsHeader": "http://localhost:5173",
+      "corsProbe": {
+        "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/bands",
+        "status": 200,
+        "accessControlAllowOrigin": "http://localhost:5173",
+        "browserFetchable": true
+      }
+    },
+    {
+      "file": "ndvi-sahel-16day.json",
+      "id": "ndvi-sahel-16day",
+      "title": "NDVI, Sahel, Burkina Faso — MODIS Terra 16-day",
+      "source": "NASA MODIS Terra MOD13Q1 v061 NDVI via ORNL DAAC MODIS Land Product Subsets API",
+      "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=14.5&longitude=-1.5&band={250m_16_days_NDVI|250m_16_days_pixel_reliability}&startDate=AYYYYDDD&endDate=AYYYYDDD&kmAboveBelow=0&kmLeftRight=0",
+      "datesUrl": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/dates?latitude=14.5&longitude=-1.5",
+      "retrieved": "2026-11-15",
+      "unit": "NDVI (unitless)",
+      "resolution": "daily",
+      "kind": "satellite",
+      "n": 614,
+      "nValid": 581,
+      "nMissing": 33,
+      "start": "2000-02-18",
+      "end": "2026-10-16",
+      "qa": {
+        "band": "250m_16_days_pixel_reliability",
+        "keptRanks": [
+          0
+        ],
+        "counts": {
+          "0": 581,
+          "1": 14,
+          "2": 0,
+          "3": 19,
+          "fill": 0
+        }
+      },
+      "cors": true,
+      "corsHeader": "http://localhost:5173",
+      "corsProbe": {
+        "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/bands",
+        "status": 200,
+        "accessControlAllowOrigin": "http://localhost:5173",
+        "browserFetchable": true
+      }
+    },
+    {
+      "file": "ndvi-sahel-monthly.json",
+      "id": "ndvi-sahel-monthly",
+      "title": "NDVI, Sahel, Burkina Faso — MODIS Terra monthly mean",
+      "source": "NASA MODIS Terra MOD13Q1 v061 NDVI via ORNL DAAC MODIS Land Product Subsets API",
+      "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=14.5&longitude=-1.5&band={250m_16_days_NDVI|250m_16_days_pixel_reliability}&startDate=AYYYYDDD&endDate=AYYYYDDD&kmAboveBelow=0&kmLeftRight=0",
+      "datesUrl": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/dates?latitude=14.5&longitude=-1.5",
+      "retrieved": "2026-11-15",
+      "unit": "NDVI (unitless)",
+      "resolution": "monthly",
+      "kind": "satellite",
+      "n": 321,
+      "nValid": 321,
+      "nMissing": 0,
+      "start": "2000-02",
+      "end": "2026-10",
+      "qa": {
+        "band": "250m_16_days_pixel_reliability",
+        "keptRanks": [
+          0
+        ],
+        "counts": {
+          "0": 581,
+          "1": 14,
+          "2": 0,
+          "3": 19,
+          "fill": 0
+        }
+      },
+      "cors": true,
+      "corsHeader": "http://localhost:5173",
+      "corsProbe": {
+        "url": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/bands",
+        "status": 200,
+        "accessControlAllowOrigin": "http://localhost:5173",
+        "browserFetchable": true
+      }
+    },
+    {
+      "file": "sea-ice-extent-antarctic-monthly.json",
+      "id": "sea-ice-extent-antarctic-monthly",
+      "title": "Antarctic sea-ice extent (monthly)",
+      "source": "NSIDC Sea Ice Index (G02135) v4.0 — satellite passive-microwave sea-ice extent",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_{MM}_extent_v4.0.csv",
+      "urls": [
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_01_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_02_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_03_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_04_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_05_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_06_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_07_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_08_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_09_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_10_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_11_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_12_extent_v4.0.csv"
+      ],
+      "retrieved": "2026-11-15",
+      "unit": "million km²",
+      "resolution": "monthly",
+      "kind": "satellite",
+      "n": 576,
+      "nValid": 574,
+      "nMissing": 2,
+      "start": "1978-11",
+      "end": "2026-10",
+      "cors": false,
+      "corsHeader": null,
+      "corsProbe": {
+        "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/",
+        "status": 200,
+        "accessControlAllowOrigin": null,
+        "browserFetchable": false
+      }
+    },
+    {
+      "file": "sea-ice-extent-arctic-monthly.json",
+      "id": "sea-ice-extent-arctic-monthly",
+      "title": "Arctic sea-ice extent (monthly)",
+      "source": "NSIDC Sea Ice Index (G02135) v4.0 — satellite passive-microwave sea-ice extent",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_{MM}_extent_v4.0.csv",
+      "urls": [
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_01_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_02_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_03_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_04_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_05_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_06_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_07_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_08_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_10_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_11_extent_v4.0.csv",
+        "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_12_extent_v4.0.csv"
+      ],
+      "retrieved": "2026-11-15",
+      "unit": "million km²",
+      "resolution": "monthly",
+      "kind": "satellite",
+      "n": 576,
+      "nValid": 574,
+      "nMissing": 2,
+      "start": "1978-11",
+      "end": "2026-10",
+      "cors": false,
+      "corsHeader": null,
+      "corsProbe": {
+        "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/",
+        "status": 200,
+        "accessControlAllowOrigin": null,
+        "browserFetchable": false
+      }
+    }
+  ],
+  "updated": "2026-11-15T11:55:21.943Z",
+  "corsProbeOrigin": "http://localhost:5173"
+}

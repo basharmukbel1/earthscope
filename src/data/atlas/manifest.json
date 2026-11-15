@@ -1,0 +1,245 @@
+{
+  "title": "EARTHSCOPE Trend Atlas — per-point trends from NASA POWER (MERRA-2)",
+  "retrieved": "2026-11-15",
+  "source": "NASA POWER API (MERRA-2 reanalysis), monthly",
+  "api": {
+    "urlPattern": "https://power.larc.nasa.gov/api/temporal/monthly/point?parameters=T2M,PRECTOTCORR,GWETTOP,TQV&community=AG&longitude={lon}&latitude={lat}&start=1981&end=2025&format=JSON",
+    "header": {
+      "title": "NASA/POWER Source Native Resolution Monthly and Annual",
+      "api": {
+        "version": "v2.10.0",
+        "name": "POWER Monthly and Annual API"
+      },
+      "sources": [
+        "MERRA2"
+      ],
+      "fill_value": -999,
+      "time_standard": "LST",
+      "start": "19810101",
+      "end": "20251231"
+    },
+    "parameters": {
+      "GWETTOP": {
+        "units": "1",
+        "longname": "Surface Soil Wetness"
+      },
+      "PRECTOTCORR": {
+        "units": "mm/day",
+        "longname": "Precipitation Corrected"
+      },
+      "T2M": {
+        "units": "C",
+        "longname": "Temperature at 2 Meters"
+      },
+      "TQV": {
+        "units": "kg m-2",
+        "longname": "Total Column Precipitable Water"
+      }
+    }
+  },
+  "sampling": {
+    "design": "Fibonacci (golden-angle) equal-area lattice, 640 points, latitude −85..85",
+    "totalPoints": 640,
+    "landPoints": 182,
+    "landMask": "d3-geo geoContains on world-atlas land-50m (Natural Earth 1:50m)",
+    "note": "POWER returns the native MERRA-2 grid cell (0.5° × 0.625°) containing each point."
+  },
+  "method": {
+    "annual": "Calendar-year aggregation of monthly values; a year is used only when all 12 months are present (missing = POWER fill −999).",
+    "minYears": 40,
+    "exclusions": "soil-surface (GWETTOP) uses land points only (world-atlas land mask); any series that is constant over the whole record is skipped because Mann-Kendall is undefined (see skippedConstantPoints).",
+    "trendTest": "Mann-Kendall (two-sided) on annual values; raw p stored per point",
+    "slope": "Sen's slope of annual values, ×10 to give units per decade",
+    "multipleTesting": "Benjamini–Hochberg FDR at q=0.1 across points, separately per variable (sig flag)",
+    "statsLibrary": "src/stats/index.ts (mannKendall, senSlope, annualAggregate, benjaminiHochberg)"
+  },
+  "variables": [
+    {
+      "variableId": "t2m",
+      "parameter": "T2M",
+      "longname": "Temperature at 2 Meters",
+      "powerUnits": "C",
+      "annualAggregation": "annual mean of 12 monthly means",
+      "annualUnit": "°C",
+      "slopeUnit": "°C per decade",
+      "landOnly": false,
+      "file": "t2m.json",
+      "points": 640,
+      "skippedOcean": 0,
+      "skippedInsufficientYears": 0,
+      "skippedConstantSeries": 0,
+      "startYear": 1981,
+      "endYear": 2025,
+      "significantIncreasing": 461,
+      "significantDecreasing": 33,
+      "significantTotal": 494,
+      "rawPBelow005": 479
+    },
+    {
+      "variableId": "precip",
+      "parameter": "PRECTOTCORR",
+      "longname": "Precipitation Corrected",
+      "powerUnits": "mm/day",
+      "annualAggregation": "annual total = Σ (monthly mean mm/day × days in month)",
+      "annualUnit": "mm",
+      "slopeUnit": "mm per decade",
+      "landOnly": false,
+      "file": "precip.json",
+      "points": 640,
+      "skippedOcean": 0,
+      "skippedInsufficientYears": 0,
+      "skippedConstantSeries": 0,
+      "startYear": 1981,
+      "endYear": 2025,
+      "significantIncreasing": 89,
+      "significantDecreasing": 112,
+      "significantTotal": 201,
+      "rawPBelow005": 226
+    },
+    {
+      "variableId": "soil-surface",
+      "parameter": "GWETTOP",
+      "longname": "Surface Soil Wetness",
+      "powerUnits": "1",
+      "annualAggregation": "annual mean of 12 monthly means",
+      "annualUnit": "1 (0–1 wetness fraction)",
+      "slopeUnit": "fraction (0–1) per decade",
+      "landOnly": true,
+      "file": "soil-surface.json",
+      "points": 163,
+      "skippedOcean": 458,
+      "skippedInsufficientYears": 0,
+      "skippedConstantSeries": 19,
+      "skippedConstantNote": "Series constant over the whole record (Mann-Kendall undefined). For GWETTOP these are MERRA-2 land-ice cells (value ≡ 1), e.g. Antarctica/Greenland, where no soil exists.",
+      "skippedConstantPoints": [
+        {
+          "lat": 78.26,
+          "lon": -32.46,
+          "value": 1
+        },
+        {
+          "lat": 69.82,
+          "lon": -44.86,
+          "value": 1
+        },
+        {
+          "lat": -66.02,
+          "lon": 52.26,
+          "value": 1
+        },
+        {
+          "lat": -67.37,
+          "lon": 104.78,
+          "value": 1
+        },
+        {
+          "lat": -69.31,
+          "lon": -65.19,
+          "value": 1
+        },
+        {
+          "lat": -71.43,
+          "lon": 124.84,
+          "value": 1
+        },
+        {
+          "lat": -72,
+          "lon": -97.65,
+          "value": 1
+        },
+        {
+          "lat": -72.59,
+          "lon": 39.86,
+          "value": 1
+        },
+        {
+          "lat": -74.47,
+          "lon": 92.38,
+          "value": 1
+        },
+        {
+          "lat": -75.15,
+          "lon": -130.11,
+          "value": 1
+        },
+        {
+          "lat": -75.87,
+          "lon": 7.4,
+          "value": 1
+        },
+        {
+          "lat": -76.62,
+          "lon": 144.91,
+          "value": 1
+        },
+        {
+          "lat": -77.41,
+          "lon": -77.59,
+          "value": 1
+        },
+        {
+          "lat": -78.26,
+          "lon": 59.92,
+          "value": 1
+        },
+        {
+          "lat": -79.17,
+          "lon": -162.57,
+          "value": 1
+        },
+        {
+          "lat": -80.16,
+          "lon": -25.06,
+          "value": 1
+        },
+        {
+          "lat": -81.27,
+          "lon": 112.45,
+          "value": 1
+        },
+        {
+          "lat": -82.54,
+          "lon": -110.05,
+          "value": 1
+        },
+        {
+          "lat": -84.06,
+          "lon": 27.46,
+          "value": 1
+        }
+      ],
+      "startYear": 1981,
+      "endYear": 2025,
+      "significantIncreasing": 31,
+      "significantDecreasing": 36,
+      "significantTotal": 67,
+      "rawPBelow005": 70
+    },
+    {
+      "variableId": "water-vapor",
+      "parameter": "TQV",
+      "longname": "Total Column Precipitable Water",
+      "powerUnits": "kg m-2",
+      "annualAggregation": "annual mean of 12 monthly means",
+      "annualUnit": "kg m⁻²",
+      "slopeUnit": "kg m⁻² per decade",
+      "landOnly": false,
+      "file": "water-vapor.json",
+      "points": 640,
+      "skippedOcean": 0,
+      "skippedInsufficientYears": 0,
+      "skippedConstantSeries": 0,
+      "startYear": 1981,
+      "endYear": 2025,
+      "significantIncreasing": 438,
+      "significantDecreasing": 15,
+      "significantTotal": 453,
+      "rawPBelow005": 434
+    }
+  ],
+  "caveats": [
+    "Values are MERRA-2 reanalysis (model + assimilated observations), not direct satellite retrievals; each point is one ~50 km grid cell.",
+    "Reanalysis trends in data-sparse polar regions can be affected by changes in the observing system. Example found while checking this build: the raw POWER T2M series at 71.43°N, 97.38°W (Canadian Arctic) drops abruptly by ~2–3 °C in annual mean between the early 2000s and 2005, producing a significant cooling trend there; treat isolated polar cooling markers with caution.",
+    "Significance (sig) controls the false discovery rate across points; it does not account for serial correlation in the annual values."
+  ]
+}

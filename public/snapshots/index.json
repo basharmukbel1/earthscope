@@ -1,0 +1,60 @@
+{
+  "retrieved": "2026-11-15T11:55:04.239Z",
+  "series": [
+    {
+      "id": "country-400__precip__1981-2025",
+      "label": "Precipitation · Jordan",
+      "cells": 28
+    },
+    {
+      "id": "country-400__precip__1981-2025",
+      "label": "Precipitation · Jordan",
+      "cells": 28
+    },
+    {
+      "id": "country-682__precip__1981-2025",
+      "label": "Precipitation · Saudi Arabia",
+      "cells": 23
+    },
+    {
+      "id": "country-368__precip__1981-2025",
+      "label": "Precipitation · Iraq",
+      "cells": 14
+    },
+    {
+      "id": "arctic-svalbard__t2m__1981-2025",
+      "label": "Air temperature · Svalbard & Barents Sea",
+      "cells": 24
+    },
+    {
+      "id": "amazon-rondonia__soil-root__1981-2025",
+      "label": "Root-zone soil moisture · Amazon frontier · Rondônia",
+      "cells": 30
+    },
+    {
+      "id": "amazon-rondonia__precip__1981-2025",
+      "label": "Precipitation · Amazon frontier · Rondônia",
+      "cells": 30
+    },
+    {
+      "id": "amazon-rondonia__t2m__1981-2025",
+      "label": "Air temperature · Amazon frontier · Rondônia",
+      "cells": 30
+    },
+    {
+      "id": "indo-gangetic__aod__2001-2025",
+      "label": "Aerosol optical depth · Indo-Gangetic Plain",
+      "cells": 24
+    },
+    {
+      "id": "sahel-west__precip__1981-2025",
+      "label": "Precipitation · Western Sahel",
+      "cells": 36
+    },
+    {
+      "id": "mediterranean-iberia__precip__1981-2025",
+      "label": "Precipitation · Iberian Peninsula",
+      "cells": 20
+    }
+  ]
+}

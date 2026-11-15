@@ -1,0 +1,16 @@
+import { chromium } from "playwright-core";
+const BASE = process.argv[2] ?? "http://localhost:4317";
+const b = await chromium.launch({ channel: "msedge", headless: true, args: ["--enable-unsafe-swiftshader", "--use-angle=swiftshader"] });
+const p = await (await b.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1.5, reducedMotion: "reduce" })).newPage();
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+await p.goto(BASE + "/investigate", { waitUntil: "networkidle" });
+await p.fill('textarea[aria-label="Research question"]', "Is precipitation decreasing in Jordan?");
+await p.getByText("EARTHSCOPE understood").waitFor({ timeout: 20000 }); await wait(800);
+await p.getByRole("button", { name: /Precipitation/ }).first().click();
+await p.getByRole("button", { name: /Jordan/ }).first().click(); await wait(600);
+await p.evaluate(() => window.scrollTo(0, 60)); await wait(400);
+await p.screenshot({ path: "docs/guide-ar/img/04-wizard.jpg", type: "jpeg", quality: 86 });
+await p.getByRole("button", { name: /03\s*Region/ }).click(); await wait(2500);
+await p.evaluate(() => window.scrollTo(0, 230)); await wait(600);
+await p.screenshot({ path: "docs/guide-ar/img/04b-wizard-region.jpg", type: "jpeg", quality: 86 });
+await b.close(); console.log("ok");

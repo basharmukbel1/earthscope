@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EARTHSCOPE · Earth engine harness</title>
+    <style>
+      html, body, #root { margin: 0; height: 100%; background: #04060c; color: #eef3ff; font: 13px/1.4 system-ui, sans-serif; }
+      .panel { position: fixed; left: 16px; bottom: 16px; z-index: 5; display: flex; flex-wrap: wrap; gap: 6px; max-width: 520px; }
+      .panel button { background: #0e1628; color: #b6c2db; border: 1px solid rgb(148 180 255 / .2); border-radius: 6px; padding: 5px 9px; cursor: pointer; }
+      .panel button[aria-pressed="true"] { color: #38e1ff; border-color: rgb(56 225 255 / .5); }
+      .tip { position: absolute; pointer-events: none; z-index: 6; background: rgb(14 22 40 / .92); border: 1px solid rgb(148 180 255 / .2); border-radius: 6px; padding: 6px 8px; font: 11px/1.4 ui-monospace, monospace; color: #eef3ff; transform: translate(12px, 12px); white-space: nowrap; }
+      .hero-copy { position: fixed; left: 72px; top: 50%; transform: translateY(-50%); z-index: 4; max-width: 520px; pointer-events: none; }
+      .hero-copy small { letter-spacing: .16em; color: #7d8aa6; font: 11px ui-monospace, monospace; }
+      .hero-copy h1 { font: 600 64px/0.98 system-ui, sans-serif; letter-spacing: -0.03em; margin: 14px 0; }
+      .hero-copy p { color: #b6c2db; font-size: 16px; max-width: 420px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

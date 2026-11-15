@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>EARTHSCOPE — دليل المشروع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --void: #04060c; --bg: #070b15; --surface: #0e1628; --surface2: #131d33;
+    --line: rgba(148,180,255,.14); --line2: rgba(148,180,255,.26);
+    --ink: #eef3ff; --ink2: #b9c4dc; --ink3: #8592ad; --ink4: #5d6984;
+    --cyan: #38e1ff; --ice: #a8d8ff; --violet: #9b8cff; --rise: #5fd3a0; --fall: #ff8a6b; --warn: #f5c56b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--void); }
+  body {
+    font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    color: var(--ink2); font-size: 10.2pt; line-height: 1.75;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .en { font-family: "Space Grotesk", sans-serif; direction: ltr; unicode-bidi: isolate; }
+  .mono { font-family: "JetBrains Mono", monospace; direction: ltr; unicode-bidi: isolate; letter-spacing: .02em; }
+  .page {
+    width: 210mm; height: 297mm; position: relative; overflow: hidden;
+    padding: 15mm 15mm 16mm; page-break-after: always; break-after: page;
+    background:
+      radial-gradient(120mm 90mm at 85% -10%, rgba(56,140,255,.10), transparent 70%),
+      linear-gradient(180deg, var(--bg), var(--void));
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  /* running header / footer */
+  .run { position: absolute; top: 7mm; left: 15mm; right: 15mm; display: flex; justify-content: space-between; align-items: center;
+         font-size: 7.5pt; color: var(--ink4); letter-spacing: .04em; }
+  .run .brand { font-family: "Space Grotesk"; font-weight: 600; letter-spacing: .28em; color: var(--ink3); direction: ltr; }
+  .foot { position: absolute; bottom: 7mm; left: 15mm; right: 15mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--ink4); border-top: 1px solid var(--line); padding-top: 2.2mm; }
+  .num { font-family: "JetBrains Mono"; color: var(--cyan); direction: ltr; unicode-bidi: isolate; }
+  /* type */
+  .kicker { display: flex; align-items: center; gap: 3mm; font-size: 8.4pt; font-weight: 600; color: var(--cyan); letter-spacing: .02em; margin-bottom: 2.5mm; }
+  .kicker .bar { width: 9mm; height: 1px; background: var(--line2); }
+  h1 { font-size: 21pt; line-height: 1.35; font-weight: 700; color: var(--ink); margin-bottom: 3mm; }
+  h2 { font-size: 12pt; font-weight: 600; color: var(--ink); margin: 4mm 0 1.5mm; }
+  p { margin-bottom: 2mm; }
+  .lead { font-size: 11pt; color: var(--ink2); line-height: 1.8; }
+  strong { color: var(--ink); font-weight: 600; }
+  ul.feat { list-style: none; display: grid; gap: 1.6mm; }
+  ul.feat li { position: relative; padding-right: 5mm; }
+  ul.feat li::before { content: ""; position: absolute; right: 0; top: 2.6mm; width: 1.8mm; height: 1.8mm; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 6px rgba(56,225,255,.7); }
+  /* figures */
+  figure { margin: 3mm 0; }
+  .shot { border-radius: 3mm; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 6mm 14mm -6mm rgba(0,0,0,.8); background: var(--surface); }
+  .shot img { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 8pt; color: var(--ink3); margin-top: 1.6mm; }
+  figcaption b { color: var(--cyan); font-weight: 600; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  /* cards */
+  .card { border: 1px solid var(--line); border-radius: 2.5mm; background: rgba(19,29,51,.55); padding: 3.2mm 3.6mm; }
+  .card h3 { font-size: 9.6pt; color: var(--ink); font-weight: 600; margin-bottom: 1mm; }
+  .card p { font-size: 8.8pt; margin: 0; line-height: 1.65; color: var(--ink2); }
+  .stat { border: 1px solid var(--line); border-radius: 2.5mm; padding: 3mm; background: rgba(14,22,40,.7); }
+  .stat .v { font-family: "Space Grotesk"; font-size: 17pt; font-weight: 600; color: var(--ink); line-height: 1.1; direction: ltr; text-align: right; }
+  .stat .k { font-size: 8pt; color: var(--ink3); margin-top: 1mm; }
+  .callout { border: 1px solid rgba(56,225,255,.3); background: rgba(56,225,255,.06); border-radius: 2.5mm; padding: 3mm 4mm; font-size: 9pt; }
+  .callout.warn { border-color: rgba(245,197,107,.35); background: rgba(245,197,107,.06); }
+  .callout.ai { border-color: rgba(155,140,255,.4); background: rgba(155,140,255,.08); }
+  .tag { display: inline-block; font-size: 7.6pt; padding: .3mm 2.2mm; border-radius: 10mm; border: 1px solid var(--line2); color: var(--ink2); margin-left: 1mm; }
+  .tag.c { border-color: rgba(56,225,255,.45); color: var(--cyan); }
+  .rise { color: var(--rise); } .fall { color: var(--fall); } .flat { color: var(--ink3); }
+  table { width: 100%; border-collapse: collapse; font-size: 8.7pt; }
+  th { text-align: right; font-weight: 600; color: var(--ink3); font-size: 7.8pt; padding: 1.6mm 2mm; border-bottom: 1px solid var(--line2); }
+  td { padding: 1.7mm 2mm; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink2); }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  /* cover */
+  .cover { padding: 0; }
+  .cover .hero { position: absolute; inset: 0 0 auto 0; height: 168mm; overflow: hidden; }
+  .cover .hero img { position: absolute; right: -6mm; top: -19mm; height: 236mm; width: auto; max-width: none; opacity: .97; }
+  .cover .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,6,12,.15) 0%, rgba(4,6,12,.25) 55%, var(--void) 100%); }
+  .cover .body { position: absolute; top: 150mm; left: 15mm; right: 15mm; }
+  .logo { display: flex; align-items: center; gap: 3mm; direction: ltr; justify-content: flex-end; }
+  .logo span { font-family: "Space Grotesk"; font-weight: 600; letter-spacing: .3em; color: var(--ink); font-size: 11pt; }
+  .logo span b { color: var(--ice); font-weight: 600; }
+  .cover h1 { font-size: 30pt; line-height: 1.25; margin-top: 6mm; }
+  .cover .sub { font-size: 12.5pt; color: var(--ink2); margin-top: 2mm; max-width: 150mm; }
+  .meta { margin-top: 8mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .meta .card p { font-size: 8.6pt; }
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2mm; margin-top: 1mm; }
+  .flow .step { position: relative; border: 1px solid var(--line2); border-radius: 2.5mm; padding: 2.6mm 2mm; text-align: center; background: rgba(14,22,40,.7); }
+  .flow .step .num { display: block; font-size: 8pt; margin-bottom: .5mm; }
+  .flow .step b { display: block; color: var(--ink); font-size: 8.8pt; font-weight: 600; line-height: 1.35; }
+  .flow .step small { display: block; color: var(--ink3); font-size: 7.4pt; margin-top: .6mm; }
+  .flow .step:not(:last-child)::after { content: "←"; position: absolute; left: -2.4mm; top: 50%; transform: translate(-50%,-50%); color: var(--cyan); font-size: 9pt; }
+  .url { font-family: "JetBrains Mono"; color: var(--cyan); direction: ltr; unicode-bidi: isolate; font-size: 9.4pt; }
+</style>
+</head>
+<body>
+
+<!-- ============================ 1. COVER ============================ -->
+<section class="page cover">
+  <div class="hero"><img src="img/01-home.jpg" alt="" /></div>
+  <div class="body">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8.5" fill="none" stroke="#a8d8ff" stroke-width="1.4"/><ellipse cx="16" cy="16" rx="14" ry="5.2" fill="none" stroke="#38e1ff" stroke-width="1.2" transform="rotate(-18 16 16)"/><circle cx="27.2" cy="10.6" r="1.7" fill="#38e1ff"/></svg>
+      <span>EARTH<b>SCOPE</b></span>
+    </div>
+    <h1>اكتشف التغيّرات الخفيّة<br />في كوكب الأرض</h1>
+    <p class="sub">منصّة علمية تفاعلية لاكتشاف الاتجاهات في نظام الأرض وتحليلها إحصائياً باستخدام بيانات رصد الأرض من وكالة ناسا — من اختيار المتغيّر والمنطقة، إلى بناء السلسلة الزمنية واختبار دلالة الاتجاه.</p>
+    <div class="meta">
+      <div class="card"><h3>التحدّي</h3><p>تحدّي ناسا Space Apps 2026<br /><span class="en">“Be An Earth System Trend Detective!”</span></p></div>
+      <div class="card"><h3>الموقع المباشر</h3><p class="url">earthscope-space-apps.netlify.app</p><p class="url">earthscope-two.vercel.app</p><p>يعمل في المتصفح مباشرة، دون حساب</p></div>
+      <div class="card"><h3>محتوى الدليل</h3><p>شرح المشروع كاملاً في 10 صفحات: الفكرة، البيانات، كل صفحات الموقع، المنهجية الإحصائية، والتقنيات</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>دليل المشروع · النسخة 1.0 · نوفمبر 2026</span><span class="num">01 / 10</span></div>
+</section>
+
+<!-- ============================ 2. CHALLENGE ============================ -->
+<section class="page">
+  <div class="run"><span>الفكرة والتحدّي</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">01</span><span class="bar"></span>التحدّي وفكرة الحل</div>
+  <h1>متغيّرات كثيرة… واتجاهات تختلف من منطقة لأخرى</h1>
+  <p class="lead">يتغيّر نظام الأرض باستمرار، وعندما يسير التغيّر في اتجاه ثابت — ارتفاعاً أو انخفاضاً — تعكسه المتغيّرات المقاسة. لكن المتغيّر نفسه قد يزداد في منطقة وينقص في منطقة مجاورة حتى لو كانت العملية الفيزيائية واحدة، كما أن كثرة المتغيّرات تجعل اختيار ما يدلّ على التغيّر وتحليله أمراً صعباً. يطلب التحدّي أداةً تختار متغيّرات من البعثات الفضائية والنماذج، وتعرض تغيّرها عبر الزمن، وتحدّد <strong>ماذا</strong> يتغيّر و<strong>أين</strong> و<strong>بكم</strong>، وهل التغيّر <strong>ذو دلالة إحصائية</strong>.</p>
+
+  <h2>كيف يلبّي EARTHSCOPE متطلبات التحدّي الأربعة</h2>
+  <table>
+    <thead><tr><th style="width:24%">متطلب التحدّي</th><th>الحل في المنصّة</th></tr></thead>
+    <tbody>
+      <tr><td>1. تحديد المتغيّرات</td><td>استوديو اكتشاف يضم <strong>19 متغيّراً</strong> في أربعة مجالات (الغلاف الجوي، اليابسة، المياه، المحيطات) مع تعريف مبسّط لكل متغيّر، وسبب أهميته، والبعثة أو النموذج الذي يقيسه (MODIS، OMI، AIRS، GPM، MERRA-2، GLDAS…).</td></tr>
+      <tr><td>2. جلب البيانات لمنطقة محدّدة</td><td>اختيار دولة بالنقر أو البحث، أو منطقة علمية مسمّاة، أو رسم مستطيل، أو إدخال إحداثيات. تُجلب البيانات مباشرة من واجهة <span class="en">NASA POWER</span> لكل خلايا الشبكة داخل حدود المنطقة.</td></tr>
+      <tr><td>3. بناء سلسلة زمنية وعرضها</td><td>سلاسل شهرية تمتد حتى <strong>45 سنة (1981–2025)</strong>، تُعرض كقيم سنوية مع خط الاتجاه، وقيم شهرية مع متوسط متحرّك، وشذوذات بعد إزالة الدورة الموسمية.</td></tr>
+      <tr><td>4. معدّل التغيّر واختبار الدلالة</td><td>اختبار مان-كندال، وميل سين مع فترات ثقة 95%، والانحدار الخطي مع اختبار t المصحّح للارتباط الذاتي، واختبار كندال الموسمي — كلها محسوبة داخل المتصفح.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>لمن صُمّمت المنصّة؟</h2>
+  <p>لطلاب المدارس الثانوية والجامعات والمهتمين بالعلوم: كل مصطلح علمي له شرح مبسّط، وكل نتيجة تُقرأ بلغة واضحة، مع عروض توضيحية يمكن مشاهدتها خطوة بخطوة — لتحويل المستخدم إلى «محقّق بيانات».</p>
+
+  <div class="grid4" style="margin-top:3mm">
+    <div class="stat"><div class="v">19</div><div class="k">متغيّراً علمياً موثّقاً</div></div>
+    <div class="stat"><div class="v">45</div><div class="k">سنة من البيانات الشهرية</div></div>
+    <div class="stat"><div class="v">640</div><div class="k">نقطة في أطلس الاتجاهات العالمي</div></div>
+    <div class="stat"><div class="v">677</div><div class="k">اختباراً آلياً للمحرّك الإحصائي</div></div>
+  </div>
+
+  <h2>كيف تعمل المنصّة من الداخل؟</h2>
+  <div class="flow">
+    <div class="step"><span class="num">1</span><b>سؤال</b><small>لغة طبيعية</small></div>
+    <div class="step"><span class="num">2</span><b>متغيّر + منطقة</b><small>كتالوج و خريطة</small></div>
+    <div class="step"><span class="num">3</span><b>جلب البيانات</b><small>NASA POWER لكل خلية</small></div>
+    <div class="step"><span class="num">4</span><b>متوسط مكاني</b><small>موزون بخط العرض</small></div>
+    <div class="step"><span class="num">5</span><b>تحليل إحصائي</b><small>MK · Sen · OLS</small></div>
+    <div class="step"><span class="num">6</span><b>تفسير وتقرير</b><small>دليل ≠ فرضية</small></div>
+  </div>
+  <p style="font-size:9pt;margin-top:2mm">يحدث كل ذلك داخل المتصفح خلال ثوانٍ: تُطلب البيانات من خوادم ناسا مباشرة، وتُخزَّن مؤقتاً على الجهاز لتسريع إعادة التشغيل، ثم تُحسب الإحصاءات محلياً — دون خادم خاص ودون إرسال أي بيانات شخصية.</p>
+
+  <div class="callout warn" style="margin-top:4mm"><strong>مبدأ الأمانة العلمية:</strong> لا توجد أرقام مختلقة في المنصّة. كل رقم إمّا مجلوب مباشرة من ناسا، أو من لقطة بيانات حقيقية مؤرّخة، أو من ملف يستورده المستخدم. البيانات الاصطناعية الوحيدة هي «محاكي الدلالة» التعليمي، وهو موسوم بوضوح بعبارة «محاكاة · بيانات اصطناعية».</div>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">02 / 10</span></div>
+</section>
+
+<!-- ============================ 3. HOME ============================ -->
+<section class="page">
+  <div class="run"><span>الصفحة الرئيسية</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">02</span><span class="bar"></span>الصفحة الرئيسية وقصة التمرير</div>
+  <h1>انطباع أول سينمائي… مبني على بيانات حقيقية</h1>
+  <figure>
+    <div class="shot"><img src="img/01-home.jpg" alt="الصفحة الرئيسية" style="height:100mm;object-fit:cover;object-position:right top" /></div>
+    <figcaption><b>الواجهة الرئيسية:</b> كرة أرضية ثلاثية الأبعاد تفاعلية بصور ناسا الحقيقية (<span class="en">Blue Marble</span> نهاراً و<span class="en">Black Marble</span> لأضواء المدن ليلاً)، وعليها مؤشرات اتجاهات الهطول الحقيقية.</figcaption>
+  </figure>
+  <div class="grid2">
+    <div>
+      <h2>ما الذي تراه في الواجهة؟</h2>
+      <ul class="feat">
+        <li>عنوان كبير «الأرض تتغيّر دائماً» وزرّان: <strong>ابدأ تحقيقك</strong> و<strong>استكشف الأرض</strong>.</li>
+        <li>مثلثات خضراء ▲ لمناطق ازداد فيها الهطول، ومثلثات برتقالية ▼ لمناطق قلّ فيها — فقط الاتجاهات ذات الدلالة الإحصائية.</li>
+        <li>شريط «قياس عن بُعد» يعرض <strong>النقطة تحت الشمسية</strong> (حيث تكون الشمس عمودية الآن) محسوبة لحظياً، وليس رقماً تزيينياً.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>قصة التمرير بخمسة أقسام</h2>
+      <ul class="feat">
+        <li><strong>التحدّي:</strong> «كوكب واحد… ملايين الإشارات البيئية».</li>
+        <li><strong>الاكتشاف:</strong> صور حقيقية من خدمة <span class="en">NASA GIBS</span> لآخر شهر متاح لكل طبقة.</li>
+        <li><strong>العلم:</strong> سجلّ الجليد البحري في القطب الشمالي كل سبتمبر — ينخفض <span class="mono">0.72−</span> مليون كم² كل عقد (<span class="mono">p &lt; 0.001</span>، 48 سنة) محسوباً في متصفحك.</li>
+        <li><strong>التحقيق</strong> بأربع خطوات، ثم <strong>دعوة للاستكشاف</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <figure style="margin-top:3mm">
+    <div class="shot"><img src="img/02-home-science.jpg" alt="قسم العلم" style="height:52mm;object-fit:cover;object-position:top" /></div>
+    <figcaption><b>قسم «العلم»:</b> مخطّط حقيقي لبيانات الأقمار الصناعية (NSIDC) مع ميل سين وفترة الثقة، وبطاقات النتائج.</figcaption>
+  </figure>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">03 / 10</span></div>
+</section>
+
+<!-- ============================ 4. DISCOVERY + DATA ============================ -->
+<section class="page">
+  <div class="run"><span>استوديو الاكتشاف ومصادر البيانات</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">03</span><span class="bar"></span>استوديو الاكتشاف</div>
+  <h1>ماذا يمكنك أن تحقّق فيه؟</h1>
+  <figure>
+    <div class="shot"><img src="img/03-discover.jpg" alt="استوديو الاكتشاف" /></div>
+    <figcaption><b>استوديو الاكتشاف:</b> بطاقات المتغيّرات مصنّفة حسب المجال، ولوحة تفاصيل تعرض صورة حقيقية من GIBS، والمنتج والوحدة والدقة الزمنية والمكانية والمدى الزمني والتغطية، والأقمار الصناعية التي تقيس المتغيّر.</figcaption>
+  </figure>
+  <p>لكل متغيّر شارة توضّح كيف تحصل على بياناته بصدق: <span class="tag c">تحليل مباشر · NASA POWER</span> <span class="tag">بيانات حقيقية مدمجة</span> <span class="tag">استيراد من Giovanni / AppEEARS</span></p>
+  <h2>مصادر البيانات</h2>
+  <table>
+    <thead><tr><th style="width:27%">المصدر</th><th style="width:16%">طريقة الاستخدام</th><th>ماذا يقدّم</th></tr></thead>
+    <tbody>
+      <tr><td><span class="en">NASA POWER</span></td><td>مباشر</td><td>سلاسل شهرية من إعادة التحليل <span class="en">MERRA-2</span>: الحرارة، الهطول، رطوبة التربة، بخار الماء، الأوزون، الهباء الجوي، التبخّر، عمق الثلج.</td></tr>
+      <tr><td><span class="en">NASA GIBS</span></td><td>مباشر</td><td>صور الأرض الحقيقية وطبقات بيانات شهرية (حرارة، هطول، NDVI، حرارة سطح البحر، الجليد البحري، GRACE…).</td></tr>
+      <tr><td><span class="en">NSIDC Sea Ice Index</span></td><td>لقطة حقيقية</td><td>امتداد الجليد البحري في القطبين من الأقمار الصناعية منذ 1978.</td></tr>
+      <tr><td><span class="en">MODIS (ORNL DAAC)</span></td><td>لقطة حقيقية</td><td>مؤشر الغطاء النباتي NDVI لنقطة في الساحل الإفريقي ونقطة في الأمازون منذ 2000.</td></tr>
+      <tr><td><span class="en">NASA GISTEMP v4</span></td><td>لقطة حقيقية</td><td>شذوذ متوسط حرارة سطح الأرض العالمي منذ 1880.</td></tr>
+      <tr><td>Giovanni، AppEEARS، CDO، KNMI</td><td>استيراد CSV</td><td>أي سلسلة زمنية تصدّرها هذه الأدوات (IMERG، GLDAS، MODIS…) تُحلَّل بالطريقة نفسها داخل المنصّة.</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:2.5mm;font-size:9pt">وتعرض صفحة «الموارد والمنهجية» كل الموارد الثلاثة عشر المذكورة في صفحة التحدّي — بما فيها موارد وكالة الفضاء الكندية (RCM، SWOT، Geo.ca، دليل SAR) — مع توضيح كيف تُستخدم كلٌّ منها في المنصّة.</p>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">04 / 10</span></div>
+</section>
+
+<!-- ============================ 5. WIZARD ============================ -->
+<section class="page">
+  <div class="run"><span>معالج التحقيق</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">04</span><span class="bar"></span>معالج التحقيق والعروض التوضيحية</div>
+  <h1>من سؤال بلغتك… إلى تحقيق علمي في ست خطوات</h1>
+  <figure>
+    <div class="shot"><img src="img/04-wizard.jpg" alt="معالج التحقيق" /></div>
+    <figcaption><b>الخطوة الأولى:</b> اكتب سؤالك مثل «هل يتناقص الهطول في الأردن؟» فيفهم المحلّل اللغوي المتغيّر (الهطول) والمنطقة (الأردن) والاتجاه المتوقّع (تناقص).</figcaption>
+  </figure>
+  <div class="grid2">
+    <div>
+      <h2>الخطوات الست</h2>
+      <ul class="feat">
+        <li><strong>السؤال:</strong> بلغة طبيعية، أو باختيار موضوع جاهز (الحرارة، المطر والجفاف، التربة والزراعة، جودة الهواء، الأوزون، المحيطات).</li>
+        <li><strong>المتغيّرات:</strong> حتى أربعة، مع تعريف كل منها وتوضيح «مباشر» أو «استيراد».</li>
+        <li><strong>المنطقة:</strong> خريطة تفاعلية، بحث، رسم مستطيل، أو إحداثيات — وحتى أربع مناطق للمقارنة.</li>
+        <li><strong>الفترة الزمنية:</strong> مع التحقق من توفّر البيانات لكل متغيّر.</li>
+        <li><strong>الطرق الإحصائية</strong> ومستوى الدلالة α.</li>
+        <li><strong>المراجعة:</strong> تحقّق آلي من الأخطاء والتحذيرات قبل التشغيل.</li>
+      </ul>
+    </div>
+    <div>
+      <figure style="margin-top:0">
+        <div class="shot"><img src="img/04b-wizard-region.jpg" alt="اختيار المنطقة" /></div>
+        <figcaption><b>الخطوة الثالثة:</b> اختيار المنطقة على خريطة العالم.</figcaption>
+      </figure>
+      <div class="callout" style="margin-top:2mm"><strong>«شاهد عرضاً توضيحياً»:</strong> ستة تحقيقات جاهزة تعمل تلقائياً خطوة بخطوة مع تعليق صوتي مكتوب (الأردن، المقارنة الإقليمية، القطب الشمالي، الأمازون، الهباء فوق سهل الغانج، الساحل مقابل إيبيريا). النتائج لا تُكتب مسبقاً — بل تُحسب من البيانات الحقيقية لحظة التشغيل.</div>
+    </div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">05 / 10</span></div>
+</section>
+
+<!-- ============================ 6. WORKSPACE ============================ -->
+<section class="page">
+  <div class="run"><span>مساحة العمل</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">05</span><span class="bar"></span>مساحة عمل التحقيق</div>
+  <h1>بيئة بحث علمية بثلاثة أعمدة</h1>
+  <figure>
+    <div class="shot"><img src="img/05-workspace.jpg" alt="مساحة العمل" /></div>
+    <figcaption><b>تحقيق «هل يتناقص الهطول في الأردن؟»</b> ببيانات حقيقية مجلوبة مباشرة من ناسا لجميع خلايا الشبكة الـ28 داخل حدود الأردن.</figcaption>
+  </figure>
+  <div class="grid3">
+    <div class="card"><h3>العمود الأيمن · التفاصيل</h3><p>المنطقة، المتغيّر وتعريفه، مجموعة البيانات، الفترة، إعدادات التحليل (الطريقة الرئيسية و α)، وجودة البيانات ومصدرها ورابط الطلب الأصلي.</p></div>
+    <div class="card"><h3>الوسط · الخريطة والمخطّطات</h3><p>خريطة المنطقة بصورة أقمار صناعية حقيقية مع نقاط الشبكة المستخدمة، ثم مخطّط السلسلة: القيم السنوية مع الاتجاه وفترة الثقة، أو الشهرية، أو الشذوذات.</p></div>
+    <div class="card"><h3>العمود الأيسر · النتائج</h3><p>بطاقة النتيجة (الاتجاه، المقدار لكل عقد، فترة الثقة، قيمة p)، جدول كل الاختبارات، والتفسير العلمي مع الفرضيات.</p></div>
+  </div>
+  <h2>ماذا وجدنا في الأردن (1981–2025)؟</h2>
+  <div class="grid4">
+    <div class="stat"><div class="v flat">−1.90</div><div class="k">ملم/سنة لكل عقد (ميل سين)</div></div>
+    <div class="stat"><div class="v">0.63</div><div class="k">قيمة p — غير دالّ إحصائياً</div></div>
+    <div class="stat"><div class="v mono" style="font-size:12pt">−8.93 … +5.78</div><div class="k">فترة الثقة 95% تتضمّن الصفر</div></div>
+    <div class="stat"><div class="v">≈ 94</div><div class="k">سنة لازمة لاكتشاف اتجاه بهذا الحجم</div></div>
+  </div>
+  <div class="callout ai" style="margin-top:3.5mm"><strong>كيف تقرأ النتيجة؟</strong> التقدير يشير إلى انخفاض بسيط (1.8% من المتوسط لكل عقد)، لكن البيانات متوافقة مع «عدم وجود اتجاه». تنبّه المنصّة إلى أن سجلاً أطول قد يغيّر الحكم، وتقترح فرضيات قابلة للاختبار (مثل انزياح مسار العواصف) وتوسمها بوضوح «غير مُختبرة».</div>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">06 / 10</span></div>
+</section>
+
+<!-- ============================ 7. TREND LAB ============================ -->
+<section class="page">
+  <div class="run"><span>مختبر الاتجاهات</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">06</span><span class="bar"></span>مختبر الاتجاهات والمنهجية الإحصائية</div>
+  <h1>ما مدى تأكّدنا من وجود تغيّر؟</h1>
+  <figure>
+    <div class="shot"><img src="img/06-trendlab.jpg" alt="مختبر الاتجاهات" style="height:108mm;object-fit:cover;object-position:top" /></div>
+    <figcaption><b>مختبر الاتجاهات:</b> بطاقات إحصائية، مبدّل الطرق، مخطّط الانحدار مع «مروحة» فترة الثقة والمتوسط المتحرّك، وجدول «هل تتفق الطرق؟».</figcaption>
+  </figure>
+  <div class="grid2">
+    <div>
+      <h2>الطرق الإحصائية المستخدمة</h2>
+      <ul class="feat">
+        <li><strong>اختبار مان-كندال</strong> مع تصحيح القيم المتساوية — للقيم السنوية.</li>
+        <li><strong>ميل سين</strong> (وسيط كل الميول الزوجية) مع فترة ثقة <span class="en">Gilbert</span>.</li>
+        <li><strong>انحدار خطي</strong> على الشذوذات الشهرية مع تصحيح الارتباط الذاتي (<span class="en">Santer 2000</span>).</li>
+        <li><strong>مان-كندال المعدّل</strong> (<span class="en">Hamed–Rao</span>) و<strong>كندال الموسمي</strong> (<span class="en">Hirsch 1982</span>).</li>
+        <li><strong>السنوات اللازمة للاكتشاف</strong> (<span class="en">Weatherhead 1998</span>) و<strong>التحكم بالاكتشافات الخاطئة</strong> للخريطة (<span class="en">Benjamini–Hochberg</span>).</li>
+      </ul>
+    </div>
+    <div>
+      <figure style="margin-top:0">
+        <div class="shot"><img src="img/07-trendlab-seasonal.jpg" alt="الدورة الموسمية" style="height:58mm;object-fit:cover;object-position:bottom" /></div>
+        <figcaption><b>هل تغيّرت الدورة الموسمية؟</b> في الأردن: أمطار أقل في آذار وتشرين الأول، وأكثر في كانون الأول (2016–2025 مقابل 1981–1990).</figcaption>
+      </figure>
+      <div class="callout" style="margin-top:2mm"><strong>موثوقية الحساب:</strong> المحرّك الإحصائي مكتوب بالكامل داخل المشروع ومغطّى بـ<strong>677 اختباراً</strong> تتطابق نتائجها مع مكتبتي <span class="en">SciPy</span> و<span class="en">pymannkendall</span> بدقة تقارب 10⁻⁹.</div>
+    </div>
+  </div>
+  <p style="margin-top:2.5mm;font-size:9pt">ويوضّح المختبر الفرق بين <strong>الدلالة الإحصائية</strong> و<strong>الأهمية العملية</strong>، ويضم <strong>محاكي الدلالة</strong> التعليمي (بيانات اصطناعية موسومة) لإظهار كيف يجعل طول السجل الاتجاهَ الصغير دالاً.</p>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">07 / 10</span></div>
+</section>
+
+<!-- ============================ 8. EXPLORER ============================ -->
+<section class="page">
+  <div class="run"><span>مستكشف الأرض</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">07</span><span class="bar"></span>مستكشف الأرض</div>
+  <h1>كرة أرضية «تنبسط» إلى خريطة</h1>
+  <figure>
+    <div class="shot"><img src="img/09-explorer-globe.jpg" alt="الكرة الأرضية" style="height:90mm;object-fit:cover" /></div>
+    <figcaption><b>وضع الكرة:</b> أطلس اتجاهات حرارة الهواء — 640 نقطة متساوية المساحة: <span class="rise">▲ 461</span> اتجاه احترار دالّ، <span class="fall">▼ 33</span> اتجاه تبريد دالّ، والدوائر المفرغة غير دالّة.</figcaption>
+  </figure>
+  <figure>
+    <div class="shot"><img src="img/10-explorer-map.jpg" alt="الخريطة المنبسطة" style="height:90mm;object-fit:cover" /></div>
+    <figcaption><b>وضع الخريطة:</b> بعد «فتح» الكرة، مع طبقة حرارة <span class="en">MERRA-2</span> الشهرية من GIBS، ومنطقة مختارة (تشاد) تبقى محدّدة أثناء التحوّل.</figcaption>
+  </figure>
+  <div class="grid3">
+    <div class="card"><h3>تحوّل حقيقي وليس خدعة</h3><p>شبكة ثلاثية الأبعاد واحدة يتحوّل كل رأس فيها من الإحداثيات الكروية إلى الخريطة المستطيلة، وتلتصق بها الحدود والمؤشرات والطبقات.</p></div>
+    <div class="card"><h3>تفاعل كامل</h3><p>تدوير وتكبير بالفأرة أو اللمس أو لوحة المفاتيح، نقر لاختيار دولة، رسم مستطيل على الخريطة، وبحث عن أي مكان.</p></div>
+    <div class="card"><h3>أداء ووصولية</h3><p>رسم عند الحاجة فقط، وتحرير ذاكرة الرسوميات، وخريطة SVG بديلة إن لم يتوفّر WebGL، واحترام إعداد «تقليل الحركة».</p></div>
+  </div>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">08 / 10</span></div>
+</section>
+
+<!-- ============================ 9. COMPARE + RELATIONSHIPS ============================ -->
+<section class="page">
+  <div class="run"><span>المقارنة الإقليمية ومختبر العلاقات</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">08</span><span class="bar"></span>المقارنة الإقليمية ومختبر العلاقات</div>
+  <h1>المتغيّر نفسه… في أماكن مختلفة</h1>
+  <figure>
+    <div class="shot"><img src="img/11-compare.jpg" alt="المقارنة الإقليمية" style="height:88mm;object-fit:cover;object-position:top" /></div>
+    <figcaption><b>الأردن مقابل السعودية مقابل العراق (الهطول 1981–2025):</b> مخطّط «غابي» لمعدّلات الاتجاه مع فترات الثقة، وخريطة المناطق، والشذوذات على محور مشترك، وجدول الفروق وتوفّر البيانات.</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th>المنطقة</th><th>الاتجاه (ملم/سنة لكل عقد)</th><th>قيمة p</th><th>الحكم</th><th>خلايا الشبكة</th></tr></thead>
+    <tbody>
+      <tr><td>العراق</td><td class="mono rise">+8.92</td><td class="mono">0.03</td><td class="rise">▲ ازدياد دالّ</td><td>14 (عيّنة منتظمة)</td></tr>
+      <tr><td>الأردن</td><td class="mono">−1.90</td><td class="mono">0.63</td><td class="flat">◇ غير دالّ</td><td>28 (كل الخلايا)</td></tr>
+      <tr><td>السعودية</td><td class="mono">−1.48</td><td class="mono">0.69</td><td class="flat">◇ غير دالّ</td><td>23 من ≈547</td></tr>
+    </tbody>
+  </table>
+  <figure style="margin-top:3.5mm">
+    <div class="shot"><img src="img/13-relationships.jpg" alt="مختبر العلاقات" style="height:62mm;object-fit:cover;object-position:top" /></div>
+    <figcaption><b>مختبر العلاقات (الأردن):</b> الهطول ورطوبة التربة في منطقة الجذور — ارتباط <span class="mono">r = 0.49</span> (<span class="mono">p &lt; 0.001</span>)، وأقوى ارتباط <span class="mono">r = 0.61</span> بتأخّر شهر واحد: التربة تستجيب للمطر بعد شهر.</figcaption>
+  </figure>
+  <div class="callout warn"><strong>الارتباط لا يعني السببية:</strong> تزيل المنصّة الدورة الموسمية والاتجاهات الطويلة قبل حساب الارتباط، وتصحّح قيم p للارتباط الذاتي (<span class="en">Bretherton</span>) ولتعدد التأخيرات المختبرة (<span class="en">Bonferroni</span>).</div>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">09 / 10</span></div>
+</section>
+
+<!-- ============================ 10. AI + REPORTS + TECH ============================ -->
+<section class="page">
+  <div class="run"><span>العالِم الذكي، التقارير، والتقنيات</span><span class="brand">EARTHSCOPE</span></div>
+  <div class="kicker"><span class="num">09</span><span class="bar"></span>العالِم الذكي والتقارير العلمية</div>
+  <h1>تفسير موثوق… وتقرير جاهز للنشر</h1>
+  <div class="grid2">
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/12-ai.jpg" alt="العالِم الذكي" style="height:84mm;object-fit:cover;object-position:88% 12%" /></div>
+      <figcaption><b>العالِم الذكي:</b> يجيب من النتائج المحسوبة فقط، ويفصل «الدليل المقاس» عن «الفرضيات». هنا يصحّح افتراض السؤال: اتجاه واحد فقط دالّ، فلا يمكن الجزم بأن الاتجاهات متعاكسة.</figcaption>
+    </figure>
+    <figure style="margin-top:0">
+      <div class="shot"><img src="img/08-report.jpg" alt="التقرير العلمي" style="height:84mm;object-fit:cover;object-position:62% 18%" /></div>
+      <figcaption><b>التقرير العلمي:</b> سؤال البحث، منطقة الدراسة، البيانات، المنهجية، النتائج والمخطّطات، التفسير، عدم اليقين، القيود، والمراجع — مع طباعة PDF وتصدير CSV و JSON.</figcaption>
+    </figure>
+  </div>
+  <div class="grid2" style="margin-top:1mm">
+    <div>
+      <h2>التقنيات والجودة</h2>
+      <ul class="feat" style="font-size:9pt">
+        <li><span class="en">React 19 · TypeScript · Vite · Tailwind CSS · Motion · three.js · d3</span></li>
+        <li>محرّك إحصائي مستقل + <strong>677 اختباراً</strong> ناجحاً.</li>
+        <li>فحص آلي لكل الصفحات على 4 مقاسات شاشة (حاسوب، لابتوب، تابلت، جوال) بدون أي أخطاء.</li>
+        <li>نشر على <span class="en">Netlify</span> و<span class="en">Vercel</span> مع نسخ احتياطية حقيقية للعروض التوضيحية تعمل حتى دون اتصال بناسا.</li>
+        <li>خادم اختياري للذكاء الاصطناعي (<span class="en">Claude</span>) يستلم الأرقام المحسوبة فقط؛ وبدونه يعمل محلّل قائم على القواعد.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>القيود والخطوات القادمة</h2>
+      <ul class="feat" style="font-size:9pt">
+        <li>متوسطات المناطق مبنية على خلايا شبكة <span class="mono">0.5° × 0.625°</span>، وبيانات POWER من إعادة تحليل وليست أقماراً مباشرة.</li>
+        <li>منتجات تتطلب حساب <span class="en">Earthdata</span> (IMERG، GLDAS، GRACE) تُحلَّل عبر استيراد CSV حالياً.</li>
+        <li>الاتجاهات خطية فقط؛ التغيّرات المفاجئة غير مُنمذجة.</li>
+        <li><strong>القادم:</strong> خادم لبيانات Earthdata، خرائط اتجاهات لكل بكسل، واجهة عربية كاملة، واختبار مع طلاب.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:3.5mm;display:flex;justify-content:space-between;align-items:center;gap:4mm">
+    <span><strong>جرّب المنصّة الآن:</strong> افتح الرابط، اضغط «ابدأ تحقيقك» أو «شاهد عرضاً توضيحياً».</span>
+    <span style="display:flex;flex-direction:column;align-items:flex-end;gap:1mm"><span class="url">https://earthscope-space-apps.netlify.app</span><span class="url" style="font-size:8.4pt;color:var(--ice)">https://earthscope-two.vercel.app</span></span>
+  </div>
+  <p style="margin-top:2.5mm;font-size:7.8pt;color:var(--ink4)">البيانات: مشروع NASA LaRC POWER، خدمة NASA GIBS / ESDIS، مركز NSIDC، ORNL DAAC، و NASA GISS. EARTHSCOPE مشروع مستقل ضمن تحدّي Space Apps وليس منتجاً رسمياً لوكالة ناسا. استُخدمت أدوات ذكاء اصطناعي في المساعدة على بناء البرنامج.</p>
+  <div class="foot"><span>EARTHSCOPE · دليل المشروع</span><span class="num">10 / 10</span></div>
+</section>
+
+</body>
+</html>
