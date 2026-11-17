@@ -54,7 +54,7 @@ A single 3D Earth that unfolds into a flat map, a question box that understands 
 Scientific honesty: only real data (every series shows its source and retrieval date; no fabricated numbers), one significance policy everywhere (p < 0.05 for one series, FDR q < 0.05 for maps), significance never shown by colour alone (▲ ▼ ◇ glyphs, labels and line styles), accessibility (keyboard use, contrast), and mobile layouts. Limitations: regional means are grid-cell samples of a reanalysis (MERRA-2), not full-resolution satellite averages; trends are linear; Earthdata-login products (IMERG, GLDAS, GRACE) are analysed through CSV import.
 
 **AI use**
-AI coding assistants (Claude) helped write the code, documentation and the demo slides. The in-app AI Scientist is rule-based (not a language model) and labels which engine answered. Screenshots in the demo are real captures of the app.
+AI coding assistants helped write the code, documentation and the demo slides. The in-app AI Scientist is rule-based (not a language model) and labels which engine answered. Screenshots in the demo are real captures of the app.
 
 ## Use of Super Intelligence (SI)
 

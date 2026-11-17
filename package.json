@@ -16,13 +16,11 @@
     "data:snapshots": "tsx --tsconfig tsconfig.app.json scripts/build-snapshots.ts",
     "verify:ui": "node scripts/verify-ui.mjs",
     "data:external": "node scripts/build-external.mjs",
-    "dev:ai": "node server/ai-proxy.mjs",
     "deploy": "node scripts/deploy-vercel.mjs",
     "guide:pdf": "node docs/guide-ar/render.mjs",
     "deploy:netlify": "npm run build && npx --yes netlify-cli@latest deploy --prod --no-build --dir dist"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^1.8.0",
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",

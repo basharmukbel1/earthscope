@@ -5,7 +5,7 @@ import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // Optional AI proxy (server/ai-proxy.mjs). Set VITE_AI_ENDPOINT=/api/interpret to use it.
+  // Optional language-model backend on :8787 (contract: docs/API_CONTRACTS.md §3). Enable with VITE_AI_ENDPOINT=/api/interpret.
   server: { proxy: { "/api": { target: "http://localhost:8787", changeOrigin: true } } },
   preview: { proxy: { "/api": { target: "http://localhost:8787", changeOrigin: true } } },
   resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },

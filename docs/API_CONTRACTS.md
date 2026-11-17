@@ -76,7 +76,7 @@ interpret(result: AnalysisResult, variable: Variable, region?: Region): AnalystB
 
 ---
 
-## 3. Optional AI endpoint (implemented: `server/ai-proxy.mjs`)
+## 3. Optional AI endpoint (any language-model backend)
 
 `POST /api/interpret` — enabled in the UI only when the app is built/run with `VITE_AI_ENDPOINT=/api/interpret`.
 
@@ -96,7 +96,7 @@ Request:
   ]
 }
 ```
-Response `200`: `{ "answer": "…", "model": "claude-opus-5-5" }` · errors: `{ "error": "…" }` with 400 / 401 / 413 / 429 / 502.
+Response `200`: `{ "answer": "…", "model": "<model id>" }` · errors: `{ "error": "…" }` with 400 / 401 / 413 / 429 / 502.
 
 Only computed statistics are sent — never raw data or personal information. The UI always shows the locally computed evidence next to the model's text and labels it "AI (LLM)".
 

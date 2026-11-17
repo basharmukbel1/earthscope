@@ -1,15 +1,15 @@
+# dependencies & build output
 node_modules
 dist
+
+# local QA screenshots & logs
 .verify
 *.log
-.env
-.env.local
+
+# raw data cache (regenerate with `npm run data:*`)
 data-raw
 
-.vercel
+# environment files & deploy links — never commit
 .env*
 .netlify
-.verify-dev.log
-.verify-preview.log
-.verify-preview2.log
-.claude/
+.vercel

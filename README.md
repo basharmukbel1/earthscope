@@ -2,7 +2,12 @@
 
 An Earth-system trend detection and investigation platform built for the **NASA Space Apps Challenge 2026 — “Be An Earth System Trend Detective!”**.
 
-**Live:** https://earthscope-space-apps.netlify.app · mirror: https://earthscope-two.vercel.app (some networks block `*.vercel.app`; use the Netlify link there). Arabic project guide (10 pages): `docs/EARTHSCOPE-Guide-AR.pdf`.
+| | |
+|---|---|
+| **Live app** | https://earthscope-space-apps.netlify.app |
+| Mirror | https://earthscope-two.vercel.app (some networks block `*.vercel.app` — use the Netlify link there) |
+| 30-second demo | [video](public/EARTHSCOPE-demo.mp4) · [slides (PDF)](public/EARTHSCOPE-demo.pdf) |
+| Arabic guide (10 pages) | [docs/EARTHSCOPE-Guide-AR.pdf](docs/EARTHSCOPE-Guide-AR.pdf) |
 
 EARTHSCOPE lets students and curious scientists:
 1. **Find** an Earth-science variable, with a plain-language definition and the NASA mission or model behind it.
@@ -23,17 +28,10 @@ npm install
 npm run dev          # http://localhost:5173
 npm run build        # type-check + production build → dist/ (includes 404.html SPA fallback)
 npm run preview      # serve dist/ on http://localhost:4173
-npm test             # 677 statistics tests (cross-checked against SciPy / pymannkendall)
+npm test             # 697 tests (677 for the statistics engine, cross-checked against SciPy / pymannkendall)
 ```
 
-Optional AI (Claude) explanations:
-
-```bash
-ANTHROPIC_API_KEY=… npm run dev:ai                     # starts server/ai-proxy.mjs on :8787
-VITE_AI_ENDPOINT=/api/interpret npm run dev            # Vite proxies /api → :8787
-```
-
-Without it, the AI Scientist uses the built-in rule-based analyst (it says which engine answered).
+No API keys or backend are needed: NASA POWER and NASA GIBS are called directly from the browser. The AI Scientist is a built-in rule-based analyst (it always says which engine answered); an optional language-model backend can be plugged in through the `/api/interpret` contract in [docs/API_CONTRACTS.md](docs/API_CONTRACTS.md).
 
 Data regeneration (not needed to run the app; outputs are committed):
 
@@ -91,7 +89,33 @@ node scripts/verify-ui.mjs http://localhost:4173   # screenshots + console-error
 
 ## Technology
 
-React 19 · TypeScript 7 · Vite 8 · React Router 8 · Tailwind CSS 4 · Motion · three.js · d3 (geo/scale/shape/array) · topojson-client + world-atlas · zustand · lucide-react · Fontsource (Space Grotesk, Inter, JetBrains Mono) · Vitest · playwright-core (verification, uses installed Edge) · @anthropic-ai/sdk (optional AI proxy only).
+React 19 · TypeScript 7 · Vite 8 · React Router 8 · Tailwind CSS 4 · Motion · three.js · d3 (geo/scale/shape/array) · topojson-client + world-atlas · zustand · lucide-react · Fontsource (Space Grotesk, Inter, JetBrains Mono) · Vitest · playwright-core (verification, uses installed Edge).
+
+## Project structure
+
+```
+src/
+  pages/        one folder per route (Home, Discovery, Investigation, Workspace, TrendLab, …)
+  components/   ui · navigation · layout · earth (three.js globe) · charts (SVG) · maps · scientific
+  services/     NASA POWER client, region sampling, GIBS, cache, CSV importers, question parser, analyst
+  stats/        statistics engine (Mann-Kendall, Sen, OLS + AR(1), Seasonal Kendall, FDR…) + tests
+  data/         variable catalog, regions, demos, glossary + generated real-data snapshots
+  store/        investigation state (zustand)
+public/         Earth textures, offline demo snapshots, demo video/PDF, guide images
+scripts/        data generation, build helpers, UI verification, deploy
+docs/           developer guide, API contracts, submission text, Arabic guide, demo + presentation sources
+```
+
+## Documentation
+
+| Document | What it covers |
+|---|---|
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Architecture, data flow, file map, conventions, data sources, verification, deployment |
+| [docs/API_CONTRACTS.md](docs/API_CONTRACTS.md) | Typed service interfaces and the contracts for optional backends |
+| [docs/SUBMISSION.md](docs/SUBMISSION.md) | Space Apps project submission text |
+| [docs/EARTHSCOPE-Guide-AR.pdf](docs/EARTHSCOPE-Guide-AR.pdf) | 10-page illustrated guide in Arabic (source: `docs/guide-ar/`) |
+| [docs/presentation/](docs/presentation/) | Judge presentation decks (full, 10-minute, 5-minute) |
+| [docs/demo/](docs/demo/) | Sources for the demo slides and the 30-second video |
 
 ## Data & demonstration content
 
